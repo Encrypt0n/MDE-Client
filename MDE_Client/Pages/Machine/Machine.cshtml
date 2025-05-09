@@ -1,0 +1,81 @@
+﻿@page
+@model MDE_Client.Pages.Machine.MachineModel
+@{
+    ViewData["Title"] = "Machine Dashboard";
+}
+
+<div class="container mt-4">
+    <h2>Machines Overview</h2>
+
+    <!-- Machine Selection Form -->
+    <form method="post">
+        <div class="mb-3">
+            <label class="form-label">Select a Machine</label>
+            <select asp-for="SelectedMachineId" class="form-select">
+                <option value="">-- Select Machine --</option>
+                @foreach (var machine in Model.Machines)
+                {
+                    <option value="@machine.MachineID">@machine.Name</option>
+                }
+            </select>
+        </div>
+        <button type="submit" asp-page-handler="SelectMachine" class="btn btn-primary">Load Dashboard Pages</button>
+    </form>
+
+    @if (Model.DashboardPages != null && Model.DashboardPages.Count > 0)
+    {
+        <h3 class="mt-4">Dashboard</h3>
+
+        <form method="post">
+            <input type="hidden" asp-for="SelectedMachineId" />
+            <button type="submit" asp-page-handler="StartVpn" class="btn btn-primary">VPN</button>
+        </form>
+
+
+        <!-- Open First Dashboard Page -->
+        <form method="post">
+            <input type="hidden" asp-for="SelectedMachineId" /> <!-- Persist Machine ID -->
+            <button type="submit" asp-page-handler="OpenDashboard" class="btn btn-success">Open Dashboard</button>
+        </form>
+
+        <h3 class="mt-4">Manage Pages</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Page Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var pagee in Model.DashboardPages)
+                {
+                    <tr>
+                        <td>@pagee.PageName</td>
+                        <td>
+                            <form method="post" class="d-inline">
+                                <input type="hidden" asp-for="SelectedMachineId" /> <!-- Persist Machine ID -->
+                                <input type="hidden" name="pageId" value="@pagee.PageID">
+                                <button type="submit" asp-page-handler="DeletePage" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    <!-- Add New Page Form -->
+    <h3 class="mt-4">Add Dashboard Page</h3>
+    <form method="post">
+        <input type="hidden" asp-for="SelectedMachineId" /> <!-- Persist Machine ID -->
+        <div class="mb-3">
+            <label class="form-label">Page Name</label>
+            <input asp-for="PageName" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Page URL</label>
+            <input asp-for="PageURL" class="form-control" required>
+        </div>
+        <button type="submit" asp-page-handler="AddPage" class="btn btn-secondary">Add Page</button>
+    </form>
+</div>

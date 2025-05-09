@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\MDE_Client.props" />
+</Project>

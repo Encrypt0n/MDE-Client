@@ -1,0 +1,14 @@
+﻿@page
+@model MDE_Client.Pages.Auth.RegisterModel
+@{
+    <form method="post">
+        <input type="text" name="username" placeholder="Username" required />
+        <input type="password" name="password" placeholder="Password" required />
+        <button type="submit">Register</button>
+    </form>
+    @if (ViewBag.Error != null)
+    {
+        <p>@ViewBag.Error</p>
+    }
+
+}
