@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BCrypt.Net;
-using MDE_Client.Models;
+using MDE_Client.Domain.Models;
 
 namespace MDE_Client.Services
 {

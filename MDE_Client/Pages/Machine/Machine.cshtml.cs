@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using MDE_Client.Models;
-using MDE_Client.Services;
+using MDE_Client.Domain.Models;
+using MDE_Client.Application.Services;
 using System.Net.Http;
 
 namespace MDE_Client.Pages.Machine
@@ -22,7 +22,7 @@ namespace MDE_Client.Pages.Machine
         }
 
         [BindProperty]
-        public ObservableCollection<Models.Machine> Machines { get; set; } = new ObservableCollection<Models.Machine>();
+        public ObservableCollection<Domain.Models.Machine> Machines { get; set; } = new ObservableCollection<Domain.Models.Machine>();
 
         [BindProperty]
         public ObservableCollection<DashboardPage> DashboardPages { get; set; } = new ObservableCollection<DashboardPage>();

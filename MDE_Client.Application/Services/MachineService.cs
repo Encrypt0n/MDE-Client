@@ -1,20 +1,20 @@
 ﻿using System.Collections.ObjectModel;
 using Microsoft.Data.SqlClient;
 using System.Reflection.PortableExecutable;
-using MDE_Client.Models;
+using MDE_Client.Domain.Models;
 using System.Diagnostics;
 using System.Windows;
 using System.Security.Cryptography;
 
 using System.Reflection;
 
-namespace MDE_Client.Services
+namespace MDE_Client.Application.Services
 {
     public class MachineService
     {
-        public ObservableCollection<Models.Machine> GetMachinesForUser(int userId)
+        public ObservableCollection<Domain.Models.Machine> GetMachinesForUser(int userId)
         {
-            var machines = new ObservableCollection<Models.Machine>();
+            var machines = new ObservableCollection<Domain.Models.Machine>();
 
             using (SqlConnection con = DatabaseHelper.GetConnection())
             {
@@ -26,7 +26,7 @@ namespace MDE_Client.Services
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    machines.Add(new MDE_Client.Models.Machine
+                    machines.Add(new MDE_Client.Domain.Models.Machine
                     {
                         MachineID = reader.GetInt32(0),
                         Name = reader.GetString(1),
@@ -38,7 +38,7 @@ namespace MDE_Client.Services
             return machines;
         }
 
-        public Models.Machine GetMachineById(int machineId)
+        public Domain.Models.Machine GetMachineById(int machineId)
         {
             using (SqlConnection con = DatabaseHelper.GetConnection())
             {
@@ -51,7 +51,7 @@ namespace MDE_Client.Services
                 {
                     if (reader.Read())  // ✅ Only create object if a record exists
                     {
-                        return new Models.Machine
+                        return new Domain.Models.Machine
                         {
                             MachineID = reader.GetInt32(0),
                             Name = reader.GetString(1),

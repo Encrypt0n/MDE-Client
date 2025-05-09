@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Data.SqlClient;
 
-namespace MDE_Client.Services
+namespace MDE_Client.Application.Services
 {
     public class DatabaseHelper
     {

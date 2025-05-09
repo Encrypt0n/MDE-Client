@@ -1,4 +1,4 @@
-﻿namespace MDE_Client.Models
+﻿namespace MDE_Client.Domain.Models
 {
     public class DashboardPage
     {

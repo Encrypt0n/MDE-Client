@@ -22,4 +22,10 @@
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MDE_Client.Application\MDE_Client.Application.csproj" />
+    <ProjectReference Include="..\MDE_Client.Domain\MDE_Client.Domain.csproj" />
+    <ProjectReference Include="..\MDE_Client.Infrastructure\MDE_Client.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

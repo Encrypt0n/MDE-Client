@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using Microsoft.Data.SqlClient;
-using MDE_Client.Models;
+using MDE_Client.Domain.Models;
 
-namespace MDE_Client.Services
+namespace MDE_Client.Application.Services
 {
     public class DashboardService
     {

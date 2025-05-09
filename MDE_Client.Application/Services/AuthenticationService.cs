@@ -4,8 +4,9 @@ using System.Security.Cryptography;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.Extensions.Configuration;
 
-namespace MDE_Client.Services
+namespace MDE_Client.Application.Services
 {
     public class AuthenticationService
     {

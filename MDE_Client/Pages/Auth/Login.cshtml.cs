@@ -1,4 +1,4 @@
-﻿using MDE_Client.Models;
+﻿using MDE_Client.Domain.Models;
 using MDE_Client.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,7 +7,7 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using MDE_Client.Services;
+using MDE_Client.Application.Services;
 
 namespace MDE_Client.Pages.Auth
 {

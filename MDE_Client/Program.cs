@@ -1,4 +1,4 @@
-﻿using MDE_Client.Services;
+﻿using MDE_Client.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
