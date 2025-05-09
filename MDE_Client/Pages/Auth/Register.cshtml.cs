@@ -1,5 +1,4 @@
-﻿using MDE_Client.Controllers;
-using MDE_Client.Services;
+﻿using MDE_Client.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -9,10 +8,8 @@ namespace MDE_Client.Pages.Auth
     public class RegisterModel : PageModel
     {
         private readonly ILogger<RegisterModel> _logger;
-        private readonly AuthController _authController;
-        public RegisterModel(ILogger<RegisterModel> logger, AuthController authController) {
-            _logger = logger;
-            _authController = authController;
+        public RegisterModel(ILogger<RegisterModel> logger) {
+       
         }
 
         [BindProperty]
@@ -34,10 +31,10 @@ namespace MDE_Client.Pages.Auth
                 return Page();
             } else
             {
-                _authController.Register(Username, Password);
+                //_authController.Register(Username, Password);
             }
 
-            var user = _authController.Login(Username, Password);
+            //var user = _authController.Login(Username, Password);
 
             
 
