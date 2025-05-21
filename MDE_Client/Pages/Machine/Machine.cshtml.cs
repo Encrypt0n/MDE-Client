@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using MDE_Client.Application.Services;
+using MDE_Client.Domain.Models;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using MDE_Client.Domain.Models;
-using MDE_Client.Application.Services;
-using System.Net.Http;
+using MDE_Client.Application;
+using MDE_Client.Application.Interfaces;
 
 namespace MDE_Client.Pages.Machine
 {
@@ -12,23 +13,27 @@ namespace MDE_Client.Pages.Machine
     {
         private readonly MachineService _machineService;
         private readonly DashboardService _dashboardService;
+        private readonly IUserActivityService _userActivityService;
+        private readonly AuthSession _authSession;
+        
 
-        private string machineIP;
 
-        public MachineModel(MachineService machineService, DashboardService dashboardService)
+        public MachineModel(MachineService machineService, DashboardService dashboardService, IUserActivityService userActivityService, AuthSession authSession)
         {
             _machineService = machineService;
             _dashboardService = dashboardService;
+            _userActivityService = userActivityService;
+            _authSession = authSession;
         }
 
-        [BindProperty]
-        public ObservableCollection<Domain.Models.Machine> Machines { get; set; } = new ObservableCollection<Domain.Models.Machine>();
+        [BindProperty(SupportsGet = true)]
+        public int MachineId { get; set; }
 
         [BindProperty]
-        public ObservableCollection<DashboardPage> DashboardPages { get; set; } = new ObservableCollection<DashboardPage>();
+        public ObservableCollection<UserActivityLog> ActivityLogs { get; set; } = new();
 
         [BindProperty]
-        public int SelectedMachineId { get; set; }
+        public ObservableCollection<DashboardPage> DashboardPages { get; set; } = new();
 
         [BindProperty]
         public string PageName { get; set; }
@@ -36,120 +41,77 @@ namespace MDE_Client.Pages.Machine
         [BindProperty]
         public string PageURL { get; set; }
 
+        public Domain.Models.Machine? Machine { get; set; }
 
-        public void OnGet(int userId)
+        public async Task<IActionResult> OnGetAsync()
         {
-            Machines = _machineService.GetMachinesForUser(userId);
-        }
+            ActivityLogs = await _userActivityService.GetActivitiesForMachineAsync(MachineId);
 
-        public IActionResult OnPostSelectMachine()
-        {
-            Machines = _machineService.GetMachinesForUser(1); // Reload Machines list
 
-            if (SelectedMachineId > 0)
-            {
-                var selectedMachine = _machineService.GetMachineById(SelectedMachineId);
-                machineIP = selectedMachine.IP;
+            Machine = await _machineService.GetMachineByIdAsync(MachineId);
+            if (Machine == null)
+                return NotFound();
 
-                if (selectedMachine != null)
-                {
-                    DashboardPages = _dashboardService.GetDashboardPages(SelectedMachineId);
-                }
-            }
-
+            DashboardPages = await _dashboardService.GetDashboardPagesAsync(MachineId);
             return Page();
         }
 
-        public IActionResult OnPostOpenDashboard()
+        public async Task<IActionResult> OnPostOpenDashboardAsync()
         {
-            Debug.WriteLine("goginggggg");
-            Debug.WriteLine("machineid" + SelectedMachineId);
-            if (SelectedMachineId > 0)
+            await _userActivityService.LogActivityAsync(new UserActivityLog
             {
-                string firstPageUrl = _dashboardService.GetFirstDashboardPageUrl(SelectedMachineId);
-                Debug.WriteLine("firstpage" + firstPageUrl);
+                UserId = int.Parse(_authSession.UserId),
+                MachineId = MachineId,
+                Action = "OpenDashboard",
+                Target = "Dashboard:FirstPage",
+                IpAddress = Request.HttpContext.Connection.RemoteIpAddress?.ToString(),
+                UserAgent = Request.Headers["User-Agent"]
+            });
 
-                if (!string.IsNullOrWhiteSpace(firstPageUrl))
+
+
+            var url = await _dashboardService.GetFirstDashboardPageUrlAsync(MachineId);
+            if (!string.IsNullOrWhiteSpace(url))
+            {
+                Process.Start(new ProcessStartInfo
                 {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = firstPageUrl,
-                        UseShellExecute = true
-                    });
-                }
+                    FileName = url,
+                    UseShellExecute = true
+                });
             }
 
+            return RedirectToPage(new { machineId = MachineId });
+        }
+
+        public async Task<IActionResult> OnPostAddPageAsync()
+        {
+            if (!string.IsNullOrWhiteSpace(PageName) && !string.IsNullOrWhiteSpace(PageURL))
+            {
+                await _dashboardService.AddDashboardPageAsync(MachineId, PageName, PageURL);
+            }
+
+            DashboardPages = await _dashboardService.GetDashboardPagesAsync(MachineId);
+            Machine = await _machineService.GetMachineByIdAsync(MachineId);
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostDeletePageAsync(int pageId)
+        {
+            if (pageId > 0)
+            {
+                await _dashboardService.DeleteDashboardPageAsync(pageId);
+            }
+
+            DashboardPages = await _dashboardService.GetDashboardPagesAsync(MachineId);
+            Machine = await _machineService.GetMachineByIdAsync(MachineId);
             return Page();
         }
 
         public async Task<IActionResult> OnPostStartVpnAsync()
         {
-            /*Machines = _machineService.GetMachinesForUser(1); // Reload Machines list
-
-            var selectedMachine = _machineService.GetMachineById(SelectedMachineId);
-            if (selectedMachine == null)
-                return Page();*/
-
-            var vpnPayload = new
-            {
-                ovpnPath = @"C:\vpn\config.ovpn", // static path as per your setup
-                ipcVpnIP = machineIP,    // use machine's IP as IPC target
-                localAliasIP = "192.168.100.10",  // static alias IP or generate dynamically
-                portForwards = new[]
-                {
-            new { from = 1883, to = 1883 },
-            new { from = 2222, to = 22 }
-        }
-            };
-
-            try
-            {
-                using var http = new HttpClient();
-                var response = await http.PostAsJsonAsync("http://localhost:5099/connect-to-ipc", vpnPayload);
-                if (!response.IsSuccessStatusCode)
-                {
-                    Debug.WriteLine("VPN connection failed: " + await response.Content.ReadAsStringAsync());
-                }
-                else
-                {
-                    Debug.WriteLine("VPN connected successfully.");
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("VPN error: " + ex.Message);
-            }
-
-           // DashboardPages = _dashboardService.GetDashboardPages(SelectedMachineId);
-            return Page();
-        }
-
-
-        public IActionResult OnPostAddPage()
-        {
-            Machines = _machineService.GetMachinesForUser(1); // Reload Machines list
-
-            if (SelectedMachineId > 0 && !string.IsNullOrWhiteSpace(PageName) && !string.IsNullOrWhiteSpace(PageURL))
-            {
-                var selectedMachine = _machineService.GetMachineById(SelectedMachineId);
-                string ip = selectedMachine.IP;
-                PageURL = "http://" + ip + ":1880/" + PageURL;
-                _dashboardService.AddDashboardPage(SelectedMachineId, PageName, PageURL);
-                DashboardPages = _dashboardService.GetDashboardPages(SelectedMachineId);
-            }
-
-            return Page();
-        }
-
-        public IActionResult OnPostDeletePage(int pageId)
-        {
-            if (pageId > 0)
-            {
-                _dashboardService.DeleteDashboardPage(pageId);
-                DashboardPages = _dashboardService.GetDashboardPages(SelectedMachineId);
-            }
-
-            return Page();
+            // Implement VPN launch logic if applicable
+            // e.g. await _vpnService.StartVpnForMachine(MachineId);
+            return RedirectToPage(new { machineId = MachineId });
         }
     }
 }

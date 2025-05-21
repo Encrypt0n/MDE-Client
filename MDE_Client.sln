@@ -5,11 +5,11 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDE_Client", "MDE_Client\MDE_Client.csproj", "{BC824DF2-F83C-462E-A3F9-AE8D7247C27B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDE_Client.Application", "MDE_Client.Application\MDE_Client.Application.csproj", "{BD7B2205-B681-4CFC-8C46-28DB2007FAD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDE_Client.Application", "MDE_Client.Application\MDE_Client.Application.csproj", "{BD7B2205-B681-4CFC-8C46-28DB2007FAD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDE_Client.Domain", "MDE_Client.Domain\MDE_Client.Domain.csproj", "{9610EF6C-36D0-42A7-9E86-0537F2F73EBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDE_Client.Domain", "MDE_Client.Domain\MDE_Client.Domain.csproj", "{9610EF6C-36D0-42A7-9E86-0537F2F73EBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDE_Client.Infrastructure", "MDE_Client.Infrastructure\MDE_Client.Infrastructure.csproj", "{68814740-8570-4083-A7C1-8D62039D19BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDE_Client.Infrastructure", "MDE_Client.Infrastructure\MDE_Client.Infrastructure.csproj", "{68814740-8570-4083-A7C1-8D62039D19BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

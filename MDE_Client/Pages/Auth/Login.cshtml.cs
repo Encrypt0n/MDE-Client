@@ -1,5 +1,5 @@
 ﻿using MDE_Client.Domain.Models;
-using MDE_Client.Services;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using MDE_Client.Application.Services;
+using MDE_Client.Application;
 
 namespace MDE_Client.Pages.Auth
 {
@@ -15,11 +16,13 @@ namespace MDE_Client.Pages.Auth
     {
         private readonly ILogger<LoginModel> _logger;
         private readonly AuthenticationService _authService;
+        private readonly AuthSession _authSession;
 
-        public LoginModel(ILogger<LoginModel> logger, AuthenticationService authService)
+        public LoginModel(ILogger<LoginModel> logger, AuthenticationService authService, AuthSession authSession)
         {
             _logger = logger;
             _authService = authService;
+            _authSession = authSession;
         }
 
         [BindProperty]
@@ -40,13 +43,16 @@ namespace MDE_Client.Pages.Auth
                 return Page();
             }
 
-            var user = _authService.LoginAsync(Username, Password);
-
-            if (user != null)
+            var success = await _authService.LoginAsync(Username, Password);
+            if (success)
             {
+                _authSession.ParseToken();
+                // now _authSession.UserId is set, and you can redirect or load user-specific data
                 _logger.LogInformation($"✅ User {Username} successfully logged in.");
-                return RedirectToPage("/Machine/Machine");
+
+                return RedirectToPage("/Machine/Machines");
             }
+            
 
             Message = "❌ Invalid login credentials.";
             return Page();

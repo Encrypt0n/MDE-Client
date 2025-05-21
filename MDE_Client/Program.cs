@@ -1,17 +1,24 @@
-﻿using MDE_Client.Application.Services;
+﻿using MDE_Client;
+using MDE_Client.Application;
+using MDE_Client.Application.Interfaces;
+using MDE_Client.Application.Services;
+using MDE_Client.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient(); // ✅ Register IHttpClientFactory
 
 builder.Services.AddSingleton<AuthenticationService>(); // Or scoped/transient as needed
-
+builder.Services.AddSingleton<AuthSession>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddSingleton<AuthenticationService>();
+
+builder.Services.AddSingleton<IUserActivityService, UserActivityService>();
 builder.Services.AddSingleton<MachineService>();
 builder.Services.AddSingleton<DashboardService>();
+
+
 
 // ✅ Configure CORS to allow external access
 builder.Services.AddCors(options =>

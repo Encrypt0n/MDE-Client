@@ -1,40 +1,24 @@
-﻿@page
+﻿@page "{machineId:int}"
 @model MDE_Client.Pages.Machine.MachineModel
 @{
     ViewData["Title"] = "Machine Dashboard";
 }
+@inject MDE_Client.Application.AuthSession AuthSession
 
 <div class="container mt-4">
-    <h2>Machines Overview</h2>
-
-    <!-- Machine Selection Form -->
-    <form method="post">
-        <div class="mb-3">
-            <label class="form-label">Select a Machine</label>
-            <select asp-for="SelectedMachineId" class="form-select">
-                <option value="">-- Select Machine --</option>
-                @foreach (var machine in Model.Machines)
-                {
-                    <option value="@machine.MachineID">@machine.Name</option>
-                }
-            </select>
-        </div>
-        <button type="submit" asp-page-handler="SelectMachine" class="btn btn-primary">Load Dashboard Pages</button>
-    </form>
+    <h2>@Model.Machine?.Name Dashboard</h2>
 
     @if (Model.DashboardPages != null && Model.DashboardPages.Count > 0)
     {
         <h3 class="mt-4">Dashboard</h3>
 
         <form method="post">
-            <input type="hidden" asp-for="SelectedMachineId" />
+            <input type="hidden" asp-for="MachineId" />
             <button type="submit" asp-page-handler="StartVpn" class="btn btn-primary">VPN</button>
         </form>
 
-
-        <!-- Open First Dashboard Page -->
         <form method="post">
-            <input type="hidden" asp-for="SelectedMachineId" /> <!-- Persist Machine ID -->
+            <input type="hidden" asp-for="MachineId" />
             <button type="submit" asp-page-handler="OpenDashboard" class="btn btn-success">Open Dashboard</button>
         </form>
 
@@ -53,8 +37,8 @@
                         <td>@pagee.PageName</td>
                         <td>
                             <form method="post" class="d-inline">
-                                <input type="hidden" asp-for="SelectedMachineId" /> <!-- Persist Machine ID -->
-                                <input type="hidden" name="pageId" value="@pagee.PageID">
+                                <input type="hidden" asp-for="MachineId" />
+                                <input type="hidden" name="pageId" value="@pagee.PageID" />
                                 <button type="submit" asp-page-handler="DeletePage" class="btn btn-danger btn-sm">Delete</button>
                             </form>
                         </td>
@@ -64,17 +48,37 @@
         </table>
     }
 
-    <!-- Add New Page Form -->
+    @if (Model.ActivityLogs != null && Model.ActivityLogs.Any())
+    {
+        <h3 class="mt-5">Recent Activity</h3>
+        <div class="activity-log border p-3 bg-light" style="max-height: 250px; overflow-y: auto; font-size: 0.9rem;">
+            <ul class="list-unstyled">
+                @foreach (var log in Model.ActivityLogs.Take(10))
+                {
+                    <li class="mb-2">
+                        <strong>@log.Timestamp.ToString("g")</strong> –
+                        <span>@log.Action</span>
+                        @if (!string.IsNullOrWhiteSpace(log.Target))
+                        {
+                            <span> → <em>@log.Target</em></span>
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+
+
     <h3 class="mt-4">Add Dashboard Page</h3>
     <form method="post">
-        <input type="hidden" asp-for="SelectedMachineId" /> <!-- Persist Machine ID -->
+        <input type="hidden" asp-for="MachineId" />
         <div class="mb-3">
             <label class="form-label">Page Name</label>
-            <input asp-for="PageName" class="form-control" required>
+            <input asp-for="PageName" class="form-control" required />
         </div>
         <div class="mb-3">
             <label class="form-label">Page URL</label>
-            <input asp-for="PageURL" class="form-control" required>
+            <input asp-for="PageURL" class="form-control" required />
         </div>
         <button type="submit" asp-page-handler="AddPage" class="btn btn-secondary">Add Page</button>
     </form>
