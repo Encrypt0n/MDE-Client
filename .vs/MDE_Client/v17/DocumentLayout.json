@@ -3,6 +3,25 @@
   "WorkspaceRootPath": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{BC824DF2-F83C-462E-A3F9-AE8D7247C27B}|MDE_Client\\MDE_Client.csproj|d:\\school\\onedrive - avans hogeschool\\avans\\leerjaar4\\stage\\projecten\\mde-client\\mde_client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BC824DF2-F83C-462E-A3F9-AE8D7247C27B}|MDE_Client\\MDE_Client.csproj|solutionrelative:mde_client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BC824DF2-F83C-462E-A3F9-AE8D7247C27B}|MDE_Client\\MDE_Client.csproj|d:\\school\\onedrive - avans hogeschool\\avans\\leerjaar4\\stage\\projecten\\mde-client\\mde_client\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{BC824DF2-F83C-462E-A3F9-AE8D7247C27B}|MDE_Client\\MDE_Client.csproj|solutionrelative:mde_client\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BC824DF2-F83C-462E-A3F9-AE8D7247C27B}|MDE_Client\\MDE_Client.csproj|d:\\school\\onedrive - avans hogeschool\\avans\\leerjaar4\\stage\\projecten\\mde-client\\mde_client\\mde_client.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{BC824DF2-F83C-462E-A3F9-AE8D7247C27B}|MDE_Client\\MDE_Client.csproj|solutionrelative:mde_client\\mde_client.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\dotnet\\sdk\\8.0.410\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.Shared.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BC824DF2-F83C-462E-A3F9-AE8D7247C27B}|MDE_Client\\MDE_Client.csproj|d:\\school\\onedrive - avans hogeschool\\avans\\leerjaar4\\stage\\projecten\\mde-client\\mde_client\\mde_client.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{BC824DF2-F83C-462E-A3F9-AE8D7247C27B}|MDE_Client\\MDE_Client.csproj|solutionrelative:mde_client\\mde_client.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{BC824DF2-F83C-462E-A3F9-AE8D7247C27B}|MDE_Client\\MDE_Client.csproj|d:\\school\\onedrive - avans hogeschool\\avans\\leerjaar4\\stage\\projecten\\mde-client\\mde_client\\pages\\machine\\machine.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BC824DF2-F83C-462E-A3F9-AE8D7247C27B}|MDE_Client\\MDE_Client.csproj|solutionrelative:mde_client\\pages\\machine\\machine.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -43,10 +62,6 @@
       "RelativeMoniker": "D:0:0:{BD7B2205-B681-4CFC-8C46-28DB2007FAD1}|MDE_Client.Application\\MDE_Client.Application.csproj|solutionrelative:mde_client.application\\services\\dashboardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BC824DF2-F83C-462E-A3F9-AE8D7247C27B}|MDE_Client\\MDE_Client.csproj|d:\\school\\onedrive - avans hogeschool\\avans\\leerjaar4\\stage\\projecten\\mde-client\\mde_client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BC824DF2-F83C-462E-A3F9-AE8D7247C27B}|MDE_Client\\MDE_Client.csproj|solutionrelative:mde_client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BC824DF2-F83C-462E-A3F9-AE8D7247C27B}|MDE_Client\\MDE_Client.csproj|d:\\school\\onedrive - avans hogeschool\\avans\\leerjaar4\\stage\\projecten\\mde-client\\mde_client\\pages\\admin\\adminpanel.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{BC824DF2-F83C-462E-A3F9-AE8D7247C27B}|MDE_Client\\MDE_Client.csproj|solutionrelative:mde_client\\pages\\admin\\adminpanel.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -73,10 +88,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{BC824DF2-F83C-462E-A3F9-AE8D7247C27B}|MDE_Client\\MDE_Client.csproj|d:\\school\\onedrive - avans hogeschool\\avans\\leerjaar4\\stage\\projecten\\mde-client\\mde_client\\pages\\auth\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BC824DF2-F83C-462E-A3F9-AE8D7247C27B}|MDE_Client\\MDE_Client.csproj|solutionrelative:mde_client\\pages\\auth\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BC824DF2-F83C-462E-A3F9-AE8D7247C27B}|MDE_Client\\MDE_Client.csproj|d:\\school\\onedrive - avans hogeschool\\avans\\leerjaar4\\stage\\projecten\\mde-client\\mde_client\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{BC824DF2-F83C-462E-A3F9-AE8D7247C27B}|MDE_Client\\MDE_Client.csproj|solutionrelative:mde_client\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BD7B2205-B681-4CFC-8C46-28DB2007FAD1}|MDE_Client.Application\\MDE_Client.Application.csproj|d:\\school\\onedrive - avans hogeschool\\avans\\leerjaar4\\stage\\projecten\\mde-client\\mde_client.application\\services\\authenticationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -110,47 +121,60 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "UserActivityService.cs",
-              "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client.Application\\Services\\UserActivityService.cs",
-              "RelativeDocumentMoniker": "MDE_Client.Application\\Services\\UserActivityService.cs",
-              "ToolTip": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client.Application\\Services\\UserActivityService.cs",
-              "RelativeToolTip": "MDE_Client.Application\\Services\\UserActivityService.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAwAsAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T13:11:44.035Z"
+              "DocumentIndex": 3,
+              "Title": "Microsoft.NET.Sdk.DefaultItems.Shared.targets",
+              "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\8.0.410\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.Shared.targets",
+              "ToolTip": "C:\\Program Files\\dotnet\\sdk\\8.0.410\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.Shared.targets",
+              "ViewState": "AQIAAM4AAAAAAAAAAAAowNQAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2025-05-30T17:39:40.587Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 4,
+              "Title": "MDE_Client",
+              "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client\\MDE_Client.csproj",
+              "RelativeDocumentMoniker": "MDE_Client\\MDE_Client.csproj",
+              "ToolTip": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client\\MDE_Client.csproj",
+              "RelativeToolTip": "MDE_Client\\MDE_Client.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-05-30T14:27:28.539Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MDE_Client.csproj",
+              "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client\\MDE_Client.csproj",
+              "RelativeDocumentMoniker": "MDE_Client\\MDE_Client.csproj",
+              "ToolTip": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client\\MDE_Client.csproj",
+              "RelativeToolTip": "MDE_Client\\MDE_Client.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-05-30T14:27:07.2Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client\\Program.cs",
               "RelativeDocumentMoniker": "MDE_Client\\Program.cs",
               "ToolTip": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client\\Program.cs",
               "RelativeToolTip": "MDE_Client\\Program.cs",
-              "ViewState": "AQIAADoAAAAAAAAAAAAYwBMAAAAtAAAA",
+              "ViewState": "AQIAACgAAAAAAAAAAAAtwDcAAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T12:56:25.108Z"
+              "WhenOpened": "2025-05-20T12:56:25.108Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "DashboardService.cs",
-              "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client.Application\\Services\\DashboardService.cs",
-              "RelativeDocumentMoniker": "MDE_Client.Application\\Services\\DashboardService.cs",
-              "ToolTip": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client.Application\\Services\\DashboardService.cs",
-              "RelativeToolTip": "MDE_Client.Application\\Services\\DashboardService.cs",
-              "ViewState": "AQIAABYAAAAAAAAAAAA1wB0AAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T14:10:59.625Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "AdminPanel.cshtml.cs",
               "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client\\Pages\\Admin\\AdminPanel.cshtml.cs",
               "RelativeDocumentMoniker": "MDE_Client\\Pages\\Admin\\AdminPanel.cshtml.cs",
@@ -158,11 +182,12 @@
               "RelativeToolTip": "MDE_Client\\Pages\\Admin\\AdminPanel.cshtml.cs",
               "ViewState": "AQIAAIsAAAAAAAAAAAA5wKIAAAA/AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-22T09:15:27.275Z"
+              "WhenOpened": "2025-05-22T09:15:27.275Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 10,
               "Title": "IUserService.cs",
               "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client.Application\\Interfaces\\IUserService.cs",
               "RelativeDocumentMoniker": "MDE_Client.Application\\Interfaces\\IUserService.cs",
@@ -170,11 +195,12 @@
               "RelativeToolTip": "MDE_Client.Application\\Interfaces\\IUserService.cs",
               "ViewState": "AQIAAAIAAAAAAAAAAAAhwA0AAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-22T09:17:15.448Z"
+              "WhenOpened": "2025-05-22T09:17:15.448Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "MachineService.cs",
               "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client.Application\\Services\\MachineService.cs",
               "RelativeDocumentMoniker": "MDE_Client.Application\\Services\\MachineService.cs",
@@ -182,11 +208,51 @@
               "RelativeToolTip": "MDE_Client.Application\\Services\\MachineService.cs",
               "ViewState": "AQIAAFMAAAAAAAAAAIAwwFQAAAA3AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T14:15:14.61Z"
+              "WhenOpened": "2025-05-09T14:15:14.61Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client\\appsettings.json",
+              "RelativeDocumentMoniker": "MDE_Client\\appsettings.json",
+              "ToolTip": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client\\appsettings.json",
+              "RelativeToolTip": "MDE_Client\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-23T08:57:41.313Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "DashboardService.cs",
+              "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client.Application\\Services\\DashboardService.cs",
+              "RelativeDocumentMoniker": "MDE_Client.Application\\Services\\DashboardService.cs",
+              "ToolTip": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client.Application\\Services\\DashboardService.cs",
+              "RelativeToolTip": "MDE_Client.Application\\Services\\DashboardService.cs",
+              "ViewState": "AQIAABYAAAAAAAAAAAA1wB0AAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-09T14:10:59.625Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "UserActivityService.cs",
+              "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client.Application\\Services\\UserActivityService.cs",
+              "RelativeDocumentMoniker": "MDE_Client.Application\\Services\\UserActivityService.cs",
+              "ToolTip": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client.Application\\Services\\UserActivityService.cs",
+              "RelativeToolTip": "MDE_Client.Application\\Services\\UserActivityService.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAwAsAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T13:11:44.035Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Machine.cshtml.cs",
               "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client\\Pages\\Machine\\Machine.cshtml.cs",
               "RelativeDocumentMoniker": "MDE_Client\\Pages\\Machine\\Machine.cshtml.cs",
@@ -199,7 +265,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "Machines.cshtml.cs",
               "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client\\Pages\\Machine\\Machines.cshtml.cs",
               "RelativeDocumentMoniker": "MDE_Client\\Pages\\Machine\\Machines.cshtml.cs",
@@ -207,11 +273,12 @@
               "RelativeToolTip": "MDE_Client\\Pages\\Machine\\Machines.cshtml.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAABMAAABHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T11:46:32.218Z"
+              "WhenOpened": "2025-05-20T11:46:32.218Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 12,
               "Title": "UserService.cs",
               "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client.Application\\Services\\UserService.cs",
               "RelativeDocumentMoniker": "MDE_Client.Application\\Services\\UserService.cs",
@@ -219,11 +286,12 @@
               "RelativeToolTip": "MDE_Client.Application\\Services\\UserService.cs",
               "ViewState": "AQIAACoAAAAAAAAAAAAYwDkAAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-22T09:19:30.071Z"
+              "WhenOpened": "2025-05-22T09:19:30.071Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "CompanyService.cs",
               "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client.Application\\Services\\CompanyService.cs",
               "RelativeDocumentMoniker": "MDE_Client.Application\\Services\\CompanyService.cs",
@@ -231,11 +299,12 @@
               "RelativeToolTip": "MDE_Client.Application\\Services\\CompanyService.cs",
               "ViewState": "AQIAACYAAAAAAAAAAAAgwBMAAABKAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-22T14:38:39.015Z"
+              "WhenOpened": "2025-05-22T14:38:39.015Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "User.cs",
               "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client.Domain\\Models\\User.cs",
               "RelativeDocumentMoniker": "MDE_Client.Domain\\Models\\User.cs",
@@ -243,11 +312,12 @@
               "RelativeToolTip": "MDE_Client.Domain\\Models\\User.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAuwAIAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-27T11:12:26.428Z"
+              "WhenOpened": "2025-05-27T11:12:26.428Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 15,
               "Title": "AdminPanel.cshtml",
               "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client\\Pages\\Admin\\AdminPanel.cshtml",
               "RelativeDocumentMoniker": "MDE_Client\\Pages\\Admin\\AdminPanel.cshtml",
@@ -255,11 +325,12 @@
               "RelativeToolTip": "MDE_Client\\Pages\\Admin\\AdminPanel.cshtml",
               "ViewState": "AQIAABgAAAAAAAAAAAAAAC8AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-22T09:12:31.782Z"
+              "WhenOpened": "2025-05-22T09:12:31.782Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 16,
               "Title": "Company.cs",
               "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client.Domain\\Models\\Company.cs",
               "RelativeDocumentMoniker": "MDE_Client.Domain\\Models\\Company.cs",
@@ -267,11 +338,12 @@
               "RelativeToolTip": "MDE_Client.Domain\\Models\\Company.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-22T14:39:16.475Z"
+              "WhenOpened": "2025-05-22T14:39:16.475Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 18,
               "Title": "Register.cshtml",
               "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client\\Pages\\Auth\\Register.cshtml",
               "RelativeDocumentMoniker": "MDE_Client\\Pages\\Auth\\Register.cshtml",
@@ -279,11 +351,12 @@
               "RelativeToolTip": "MDE_Client\\Pages\\Auth\\Register.cshtml",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-22T14:34:06.842Z"
+              "WhenOpened": "2025-05-22T14:34:06.842Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 17,
               "Title": "Register.cshtml.cs",
               "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client\\Pages\\Auth\\Register.cshtml.cs",
               "RelativeDocumentMoniker": "MDE_Client\\Pages\\Auth\\Register.cshtml.cs",
@@ -291,11 +364,12 @@
               "RelativeToolTip": "MDE_Client\\Pages\\Auth\\Register.cshtml.cs",
               "ViewState": "AQIAACoAAAAAAAAAAAAYwD0AAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T11:46:22.529Z"
+              "WhenOpened": "2025-05-20T11:46:22.529Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 20,
               "Title": "Machine.cshtml",
               "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client\\Pages\\Machine\\Machine.cshtml",
               "RelativeDocumentMoniker": "MDE_Client\\Pages\\Machine\\Machine.cshtml",
@@ -303,11 +377,12 @@
               "RelativeToolTip": "MDE_Client\\Pages\\Machine\\Machine.cshtml",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACEAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-20T11:55:47.054Z"
+              "WhenOpened": "2025-05-20T11:55:47.054Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 21,
               "Title": "Login.cshtml.cs",
               "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client\\Pages\\Auth\\Login.cshtml.cs",
               "RelativeDocumentMoniker": "MDE_Client\\Pages\\Auth\\Login.cshtml.cs",
@@ -315,11 +390,12 @@
               "RelativeToolTip": "MDE_Client\\Pages\\Auth\\Login.cshtml.cs",
               "ViewState": "AQIAAAYAAAAAAAAAAAAAADYAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T11:51:35.495Z"
+              "WhenOpened": "2025-05-20T11:51:35.495Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 19,
               "Title": "Machine.cs",
               "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client.Domain\\Models\\Machine.cs",
               "RelativeDocumentMoniker": "MDE_Client.Domain\\Models\\Machine.cs",
@@ -327,23 +403,12 @@
               "RelativeToolTip": "MDE_Client.Domain\\Models\\Machine.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-26T08:09:03.139Z"
+              "WhenOpened": "2025-05-26T08:09:03.139Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client\\appsettings.json",
-              "RelativeDocumentMoniker": "MDE_Client\\appsettings.json",
-              "ToolTip": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client\\appsettings.json",
-              "RelativeToolTip": "MDE_Client\\appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-05-23T08:57:41.313Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 23,
               "Title": "AuthSession.cs",
               "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client.Application\\AuthSession.cs",
               "RelativeDocumentMoniker": "MDE_Client.Application\\AuthSession.cs",
@@ -351,11 +416,12 @@
               "RelativeToolTip": "MDE_Client.Application\\AuthSession.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAADAAAABLAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T11:33:02.539Z"
+              "WhenOpened": "2025-05-20T11:33:02.539Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 24,
               "Title": "Machines.cshtml",
               "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client\\Pages\\Machine\\Machines.cshtml",
               "RelativeDocumentMoniker": "MDE_Client\\Pages\\Machine\\Machines.cshtml",
@@ -363,11 +429,12 @@
               "RelativeToolTip": "MDE_Client\\Pages\\Machine\\Machines.cshtml",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-20T11:54:23.343Z"
+              "WhenOpened": "2025-05-20T11:54:23.343Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 22,
               "Title": "AuthenticationService.cs",
               "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client.Application\\Services\\AuthenticationService.cs",
               "RelativeDocumentMoniker": "MDE_Client.Application\\Services\\AuthenticationService.cs",
@@ -375,11 +442,12 @@
               "RelativeToolTip": "MDE_Client.Application\\Services\\AuthenticationService.cs",
               "ViewState": "AQIAAAwAAAAAAAAAAAAawDMAAABcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T14:08:31.143Z"
+              "WhenOpened": "2025-05-09T14:08:31.143Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 25,
               "Title": "IUserActivityService.cs",
               "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client.Application\\Interfaces\\IUserActivityService.cs",
               "RelativeDocumentMoniker": "MDE_Client.Application\\Interfaces\\IUserActivityService.cs",
@@ -387,11 +455,12 @@
               "RelativeToolTip": "MDE_Client.Application\\Interfaces\\IUserActivityService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAABgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T13:11:07.307Z"
+              "WhenOpened": "2025-05-20T13:11:07.307Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 26,
               "Title": "UserActivityLog.cs",
               "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client.Domain\\Models\\UserActivityLog.cs",
               "RelativeDocumentMoniker": "MDE_Client.Domain\\Models\\UserActivityLog.cs",
@@ -399,11 +468,12 @@
               "RelativeToolTip": "MDE_Client.Domain\\Models\\UserActivityLog.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T13:42:18.182Z"
+              "WhenOpened": "2025-05-20T13:42:18.182Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 27,
               "Title": "DatabaseHelper.cs",
               "DocumentMoniker": "D:\\School\\OneDrive - Avans Hogeschool\\Avans\\Leerjaar4\\Stage\\Projecten\\MDE-Client\\MDE_Client.Application\\Services\\DatabaseHelper.cs",
               "RelativeDocumentMoniker": "MDE_Client.Application\\Services\\DatabaseHelper.cs",
@@ -411,7 +481,8 @@
               "RelativeToolTip": "MDE_Client.Application\\Services\\DatabaseHelper.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T14:14:48.592Z"
+              "WhenOpened": "2025-05-09T14:14:48.592Z",
+              "EditorCaption": ""
             }
           ]
         }

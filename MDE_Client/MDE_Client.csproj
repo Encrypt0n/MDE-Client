@@ -9,11 +9,15 @@
   <ItemGroup>
     <None Remove="Keys\public.key" />
   </ItemGroup>
+	
+	
 
   <ItemGroup>
     <Content Include="Keys\public.key">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+	
+	
   </ItemGroup>
 
   <ItemGroup>

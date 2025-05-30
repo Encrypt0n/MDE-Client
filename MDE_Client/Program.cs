@@ -53,7 +53,7 @@ var app = builder.Build();
 
 // ✅ Allow the app to listen on all network interfaces
 var port = "7029"; // Change if needed
-app.Urls.Add($"http://0.0.0.0:{port}");
+builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -71,5 +71,7 @@ app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapRazorPages();
+
+
 
 app.Run();
