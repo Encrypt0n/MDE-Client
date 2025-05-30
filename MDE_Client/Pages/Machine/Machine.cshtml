@@ -13,10 +13,10 @@
         <h3 class="mt-4">Dashboard</h3>
         @if (AuthSession.Role == "1" || AuthSession.Role == "2" || AuthSession.Role == "4")
         {
-            <form method="post">
-                <input type="hidden" asp-for="MachineId" />
-            <button type="submit" asp-page-handler="StartVpn" class="btn btn-primary">VPN</button>
-        </form>
+            <input type="hidden" id="machineId" value="@Model.MachineId" />
+            <button id="startVpnBtn" class="btn btn-primary">VPN</button>
+            <div id="vpnStatus"></div>
+
         }
 
         <form method="post">
@@ -59,3 +59,42 @@
     
    
 </div>
+
+<script>
+    document.getElementById("startVpnBtn").addEventListener("click", async () => {
+      const vpnStatus = document.getElementById("vpnStatus");
+      vpnStatus.innerText = "Starting VPN...";
+      const machineId = document.getElementById("machineId").value;
+
+      try {
+        const response = await fetch(`/Machine/Machine/${machineId}?handler=StartVpn`, {
+          method: "POST",
+          headers: {
+            "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
+          }
+        });
+
+        if (!response.ok) {
+          vpnStatus.innerText = "Failed to get VPN config from server.";
+          return;
+        }
+
+        const vpnCommand = await response.json();
+
+        const localRes = await fetch("https://localhost:8787/vpn/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(vpnCommand)
+        });
+
+        vpnStatus.innerText = localRes.ok
+          ? "VPN started successfully!"
+          : "Local VPN service responded with error.";
+
+      } catch (err) {
+        vpnStatus.innerText = "Could not reach local VPN service. Is it installed and running?";
+        console.error(err);
+      }
+    });
+</script>
+

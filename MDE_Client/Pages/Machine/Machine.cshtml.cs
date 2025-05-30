@@ -137,68 +137,44 @@ namespace MDE_Client.Pages.Machine
 
         public async Task<IActionResult> OnPostStartVpnAsync()
         {
-            if (_authSession.Role == "1" || _authSession.Role == "2" || _authSession.Role == "4")
+            if (_authSession.Role != "1" && _authSession.Role != "2" && _authSession.Role != "4")
+                return Forbid();
+
+            Machine = await _machineService.GetMachineByIdAsync(MachineId);
+            if (Machine == null || string.IsNullOrWhiteSpace(Machine.IP))
+                return BadRequest("Invalid machine or IPC IP.");
+
+            string ovpnConfig = GenerateOvpnConfig(Machine.Name, int.Parse(_authSession.UserId), Machine.Description ?? "", Machine.IP);
+
+            byte[] zipBytes;
+            string zipFileName;
+
+            try
             {
-                Machine = await _machineService.GetMachineByIdAsync(MachineId);
-                if (Machine == null)
-                    return NotFound();
+                Company company = await _companyService.GetCompanyByIdAsync(int.Parse(_authSession.CompanyId));
+                User user = await _userService.GetUserByIdAsync(int.Parse(_authSession.UserId));
+                var (fileContent, fileName) = await _machineService.GenerateUserConfigAsync(user.Username, ovpnConfig, company);
 
-                if (string.IsNullOrWhiteSpace(Machine.IP))
-                    return BadRequest("Machine does not have a valid IPC IP address.");
-
-                // Generate the .ovpn config (string)
-                string ovpnConfig = GenerateOvpnConfig(Machine.Name, int.Parse(_authSession.UserId), Machine.Description ?? "", Machine.IP);
-
-                byte[] zipBytes;
-                string zipFileName;
-                try
-                {
-                    Company company = await _companyService.GetCompanyByIdAsync(int.Parse(_authSession.CompanyId));
-                    User user = await _userService.GetUserByIdAsync(int.Parse(_authSession.UserId));
-                    var (fileContent, fileName) = await _machineService.GenerateUserConfigAsync(user.Username, ovpnConfig, company);
-
-                    zipBytes = fileContent;
-                    zipFileName = fileName;
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", $"Failed to generate VPN config: {ex.Message}");
-                    return Page();
-                }
+                zipBytes = fileContent;
+                zipFileName = fileName;
 
                 var vpnCommand = new
                 {
                     Command = "start",
                     Username = _authSession.UserId,
                     ZipFileName = zipFileName,
-                    ZipContentBase64 = Convert.ToBase64String(zipBytes), // base64 encode ZIP content
+                    ZipContentBase64 = Convert.ToBase64String(zipBytes),
                     TargetIPC = Machine.IP
                 };
 
-                using var client = new HttpClient();
-                var json = JsonSerializer.Serialize(vpnCommand);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                try
-                {
-                    var response = await client.PostAsync("https://localhost:8787/vpn", content);
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        ModelState.AddModelError("", "Failed to start VPN service.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", $"Error contacting VPN service: {ex.Message}");
-                }
-
-                return RedirectToPage(new { machineId = MachineId });
+                return new JsonResult(vpnCommand);
             }
-            else
+            catch (Exception ex)
             {
-                return Forbid();
+                return BadRequest(new { error = $"Failed to generate VPN config: {ex.Message}" });
             }
         }
+
 
 
 
