@@ -1,0 +1,47 @@
+﻿@page
+@model MDE_Client.Pages.Admin.AdminPanelModel
+@{
+    ViewData["Title"] = "Generate OVPN Config";
+}
+
+<h2>Generate OVPN Config</h2>
+
+<!-- User selection and machine config generation -->
+<form method="post" asp-page-handler="DownloadGenerated">
+    <div>
+        <label for="SelectedUserId">Select User:</label>
+        <select asp-for="SelectedUserId" asp-items="Model.Users" class="form-control">
+            <option value="">-- Select --</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="MachineName">Machine Name:</label>
+        <input type="text" asp-for="MachineName" class="form-control" />
+    </div>
+
+    <div>
+        <label for="Description">Client Description:</label>
+        <input type="text" asp-for="Description" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Download .zip with client.ovpn</button>
+</form>
+
+<hr />
+
+<h2>Add New Company</h2>
+
+<form method="post" asp-page-handler="CreateCompany">
+    <div>
+        <label for="CompanyName">Company Name:</label>
+        <input type="text" asp-for="CompanyName" class="form-control" />
+    </div>
+
+    <div>
+        <label for="CompanyDescription">Company Description:</label>
+        <input type="text" asp-for="CompanyDescription" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success mt-2">Create Company</button>
+</form>

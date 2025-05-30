@@ -4,6 +4,9 @@
     <form method="post">
         <input type="text" name="username" placeholder="Username" required />
         <input type="password" name="password" placeholder="Password" required />
+        <select asp-for="SelectedCompanyId" asp-items="Model.CompanyOptions">
+            <option value="">-- Select Company --</option>
+        </select>
         <button type="submit">Register</button>
     </form>
     @if (ViewBag.Error != null)

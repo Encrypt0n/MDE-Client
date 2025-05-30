@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using Microsoft.IdentityModel.JsonWebTokens;
 using System.Diagnostics;
 using MDE_Client.Application.Services;
+using System.Security.Principal;
 
 namespace MDE_Client.Application
 {
@@ -16,6 +17,9 @@ namespace MDE_Client.Application
 
         public string? Token => _authService.GetToken();
         public string? UserId { get; private set; }
+
+        public string? Role { get; set; }
+        public string? CompanyId { get; set; }
         public bool IsAuthenticated => !string.IsNullOrEmpty(UserId);
 
         public AuthSession(AuthenticationService authService, IConfiguration config)
@@ -37,8 +41,12 @@ namespace MDE_Client.Application
 
                 UserId = 
                       jwt.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
+                Role = jwt.Claims.FirstOrDefault(c => c.Type == "typ")?.Value.ToString();
+                CompanyId = jwt.Claims.FirstOrDefault(c => c.Type == "nbf")?.Value.ToString();
 
                 Debug.WriteLine("Parsed userId from token: " + UserId);
+                Debug.WriteLine("Parsed userId from token: " + Role);
+                Debug.WriteLine("Parsed companyId from token: " + CompanyId);
             }
             catch (Exception ex)
             {

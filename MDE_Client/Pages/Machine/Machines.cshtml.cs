@@ -30,7 +30,7 @@ namespace MDE_Client.Pages.Machine
 
             
             Debug.WriteLine("userrrr ", _authSession.Token);
-            Machines = await _machineService.GetMachinesForUserAsync(int.Parse(_authSession.UserId));
+            Machines = await _machineService.GetMachinesForCompanyAsync(int.Parse(_authSession.CompanyId));
             Debug.WriteLine("machines: " + Machines?.Count);
         }
 

@@ -47,9 +47,9 @@ namespace MDE_Client.Application.Services
             return false;
         }
 
-        public async Task<bool> RegisterAsync(string username, string password)
+        public async Task<bool> RegisterAsync(string username, string password, int companyId)
         {
-            var data = new { Username = username, Password = password };
+            var data = new { Username = username, Password = password, CompanyID = companyId };
             var response = await _httpClient.PostAsJsonAsync("api/auth/register", data);
             return response.IsSuccessStatusCode;
         }

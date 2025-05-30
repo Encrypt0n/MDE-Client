@@ -11,41 +11,28 @@
     @if (Model.DashboardPages != null && Model.DashboardPages.Count > 0)
     {
         <h3 class="mt-4">Dashboard</h3>
-
-        <form method="post">
-            <input type="hidden" asp-for="MachineId" />
+        @if (AuthSession.Role == "1" || AuthSession.Role == "2" || AuthSession.Role == "4")
+        {
+            <form method="post">
+                <input type="hidden" asp-for="MachineId" />
             <button type="submit" asp-page-handler="StartVpn" class="btn btn-primary">VPN</button>
         </form>
+        }
 
         <form method="post">
             <input type="hidden" asp-for="MachineId" />
             <button type="submit" asp-page-handler="OpenDashboard" class="btn btn-success">Open Dashboard</button>
         </form>
 
-        <h3 class="mt-4">Manage Pages</h3>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Page Name</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var pagee in Model.DashboardPages)
-                {
-                    <tr>
-                        <td>@pagee.PageName</td>
-                        <td>
-                            <form method="post" class="d-inline">
-                                <input type="hidden" asp-for="MachineId" />
-                                <input type="hidden" name="pageId" value="@pagee.PageID" />
-                                <button type="submit" asp-page-handler="DeletePage" class="btn btn-danger btn-sm">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        @if (AuthSession.Role == "1" || AuthSession.Role == "2" || AuthSession.Role == "4")
+        {
+            <h3 class="mt-4">Choose Dashboard Page</h3>
+            <form method="post" asp-page-handler="SelectDashboardPage">
+                <select asp-for="SelectedPageUrl" asp-items="@(new SelectList(Model.DashboardPages, "PageURL", "PageName"))"></select>
+            <button type="submit">Set as Dashboard</button>
+        </form>
+        }
+
     }
 
     @if (Model.ActivityLogs != null && Model.ActivityLogs.Any())
@@ -69,17 +56,6 @@
     }
 
 
-    <h3 class="mt-4">Add Dashboard Page</h3>
-    <form method="post">
-        <input type="hidden" asp-for="MachineId" />
-        <div class="mb-3">
-            <label class="form-label">Page Name</label>
-            <input asp-for="PageName" class="form-control" required />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Page URL</label>
-            <input asp-for="PageURL" class="form-control" required />
-        </div>
-        <button type="submit" asp-page-handler="AddPage" class="btn btn-secondary">Add Page</button>
-    </form>
+    
+   
 </div>

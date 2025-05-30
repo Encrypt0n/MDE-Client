@@ -1,0 +1,167 @@
+using MDE_Client.Application;
+using MDE_Client.Application.Interfaces;
+using MDE_Client.Application.Services;
+using MDE_Client.Domain.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Text;
+
+namespace MDE_Client.Pages.Admin
+{
+    public class AdminPanelModel : PageModel
+    {
+        private readonly IUserService _userService;
+        private readonly MachineService _machineService;
+        private readonly CompanyService _companyService;
+        private readonly AuthSession _authSession;
+
+        public AdminPanelModel(IUserService userService, MachineService machineService, CompanyService companyService, AuthSession authSession)
+        {
+            _userService = userService;
+            _machineService = machineService;
+            _companyService = companyService;
+            _authSession = authSession;
+        }
+
+        [BindProperty]
+        public int SelectedUserId { get; set; }
+
+        [BindProperty]
+        public string MachineName { get; set; } = string.Empty;
+
+        [BindProperty]
+        public string CompanyName { get; set; } = string.Empty;
+
+        [BindProperty]
+        public string CompanyDescription { get; set; } = string.Empty;
+
+
+        [BindProperty]
+        public string Description { get; set; } = string.Empty;
+
+        [BindProperty]
+        public string? OvpnContent { get; set; }
+
+        public List<SelectListItem> Users { get; set; } = new();
+
+        public async Task<IActionResult> OnGetAsync()
+        {
+
+            if (_authSession.Role != "1")
+            {
+                return Forbid(); // or RedirectToPage("/AccessDenied")
+            }
+            await LoadUsersAsync();
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostCreateCompanyAsync()
+        {
+            if (_authSession.Role != "1")
+            {
+                return Forbid(); // or RedirectToPage("/AccessDenied")
+            }
+
+            await LoadUsersAsync();
+
+            if (string.IsNullOrWhiteSpace(CompanyName))
+            {
+                ModelState.AddModelError("", "Company name is required.");
+                return Page();
+            }
+
+           
+
+            try
+            {
+                await _companyService.AddCompanyAsync(CompanyName, CompanyDescription);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"Failed to create company: {ex.Message}");
+                return Page();
+            }
+
+            // Optionally clear the fields after successful creation
+            CompanyName = string.Empty;
+            CompanyDescription = string.Empty;
+
+            return RedirectToPage(); // Reload the page
+        }
+
+
+        
+
+        public async Task<IActionResult> OnPostDownloadGeneratedAsync()
+        {
+            if (_authSession.Role != "1")
+            {
+                return Forbid(); // or RedirectToPage("/AccessDenied")
+            }
+
+            await LoadUsersAsync();
+
+            if (SelectedUserId == 0 || string.IsNullOrEmpty(MachineName))
+            {
+                ModelState.AddModelError("", "User and machine name must be provided.");
+                return Page();
+            }
+            User user = await _userService.GetUserByIdAsync(SelectedUserId);
+            Company company = await _companyService.GetCompanyByIdAsync(user.CompanyID);
+            string ovpn = GenerateOvpnConfig(company.Name, MachineName, user.CompanyID, Description);
+
+            try
+            {
+                
+
+                
+                var (fileContent, fileName) = await _machineService.GenerateClientConfigAsync(MachineName, ovpn, company);
+                return File(fileContent, "application/zip", fileName);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"Failed to generate VPN config: {ex.Message}");
+                return Page();
+            }
+        }
+
+        private async Task LoadUsersAsync()
+        {
+
+            var users = await _userService.GetAllUsersAsync();
+            Users = users.Select(u => new SelectListItem
+            {
+                Value = u.UserID.ToString(),
+                Text = u.Username
+            }).ToList();
+        }
+
+        private string GenerateOvpnConfig(string companyName, string machineName, int companyId, string description)
+        {
+            return $@"client
+dev tun
+proto udp4
+remote 217.63.76.110 1195
+resolv-retry infinite
+nobind
+persist-key
+persist-tun
+ca ""C:\\Program Files\\OpenVPN\\config\\ca.crt""
+cert ""C:\\Program Files\\OpenVPN\\config\\client.crt""
+key ""C:\\Program Files\\OpenVPN\\config\\client.key""
+tls-auth ""C:\\Program Files\\OpenVPN\\config\\ta.key"" 1
+key-direction 1
+cipher AES-256-GCM
+auth SHA256
+tls-version-min 1.2
+remote-cert-tls server
+setenv UV_CLIENT_COMPANY_ID {companyId}
+setenv UV_CLIENT_NAME {companyName}_{machineName}
+setenv UV_CLIENT_DESCRIPTION ""{description}""
+push-peer-info
+auth-user-pass ""C:\\Program Files\\OpenVPN\\config\\auth.txt""
+verb 3".Trim();
+        }
+    }
+}

@@ -18,6 +18,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/School/OneDrive - Avans Hogeschool/Avans/Leerjaar4/Stage/Projecten/MDE-Client/MDE_Client/Pages/Admin/AdminPanel.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cQWRtaW5QYW5lbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/School/OneDrive - Avans Hogeschool/Avans/Leerjaar4/Stage/Projecten/MDE-Client/MDE_Client/Pages/Auth/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

@@ -86,12 +86,9 @@ D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client
 D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client\obj\Debug\net8.0\MDE_Client.RazorAssemblyInfo.cache
 D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client\obj\Debug\net8.0\MDE_Client.RazorAssemblyInfo.cs
 D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client\obj\Debug\net8.0\MDE_Client.sourcelink.json
-D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client\obj\Debug\net8.0\MDE_Client.dll
-D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client\obj\Debug\net8.0\refint\MDE_Client.dll
-D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client\obj\Debug\net8.0\MDE_Client.pdb
 D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client\bin\Debug\net8.0\appsettings.Development.json
-D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client\bin\Debug\net8.0\Keys\public.key
 D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client\bin\Debug\net8.0\appsettings.json
+D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client\bin\Debug\net8.0\Keys\public.key
 D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client\bin\Debug\net8.0\MDE_Client.staticwebassets.runtime.json
 D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client\bin\Debug\net8.0\MDE_Client.exe
 D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client\bin\Debug\net8.0\MDE_Client.deps.json
@@ -164,5 +161,8 @@ D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client
 D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client\obj\Debug\net8.0\scopedcss\bundle\MDE_Client.styles.css
 D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client\obj\Debug\net8.0\scopedcss\projectbundle\MDE_Client.bundle.scp.css
 D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client\obj\Debug\net8.0\MDE_Client.csproj.Up2Date
+D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client\obj\Debug\net8.0\MDE_Client.dll
+D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client\obj\Debug\net8.0\refint\MDE_Client.dll
+D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client\obj\Debug\net8.0\MDE_Client.pdb
 D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client\obj\Debug\net8.0\MDE_Client.genruntimeconfig.cache
 D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client\obj\Debug\net8.0\ref\MDE_Client.dll

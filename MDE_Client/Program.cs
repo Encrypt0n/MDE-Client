@@ -3,6 +3,7 @@ using MDE_Client.Application;
 using MDE_Client.Application.Interfaces;
 using MDE_Client.Application.Services;
 using MDE_Client.Domain;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +16,22 @@ builder.Services.AddSingleton<AuthSession>();
 builder.Services.AddRazorPages();
 
 builder.Services.AddSingleton<IUserActivityService, UserActivityService>();
+builder.Services.AddSingleton<IUserService, UserService>();
+builder.Services.AddScoped<CompanyService>();
 builder.Services.AddSingleton<MachineService>();
 builder.Services.AddSingleton<DashboardService>();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/AccessDenied";
+    });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policy => policy.RequireRole("1"));
+});
 
 
 
@@ -53,6 +68,7 @@ app.UseRouting();
 
 app.UseCors("AllowAll");
 
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapRazorPages();
 
