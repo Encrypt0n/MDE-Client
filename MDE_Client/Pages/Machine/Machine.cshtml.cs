@@ -181,7 +181,7 @@ namespace MDE_Client.Pages.Machine
 
                 try
                 {
-                    var response = await client.PostAsync("http://localhost:8787/vpn", content);
+                    var response = await client.PostAsync("https://localhost:8787/vpn", content);
                     if (!response.IsSuccessStatusCode)
                     {
                         ModelState.AddModelError("", "Failed to start VPN service.");
