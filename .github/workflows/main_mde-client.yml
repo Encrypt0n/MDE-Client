@@ -23,8 +23,33 @@ jobs:
         with:
           dotnet-version: '8.x'
 
+      - name: Install SonarScanner for .NET
+        run: dotnet tool install --global dotnet-sonarscanner
+
+      - name: Install Coverlet
+        run: dotnet tool install --global coverlet.console
+
+      - name: Add .NET tools to PATH
+        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Begin SonarCloud analysis
+        run: |
+          dotnet sonarscanner begin \
+            /k:"Encrypt0n_MDE-Client" \
+            /o:"encrypt0n" \
+            /d:sonar.login="43481cfa073dc3c47dfbba6d8cb7de73495730ad" \
+            /d:sonar.cs.opencover.reportsPaths="TestResults/coverage.opencover.xml" \
+            /d:sonar.verbose=true \
+            /d:sonar.projectBaseDir="%CD%\.."  # adjust if needed
+
       - name: Build with dotnet
         run: dotnet build --configuration Release
+
+      - name: End SonarCloud analysis
+        run: dotnet sonarscanner end /d:sonar.login="43481cfa073dc3c47dfbba6d8cb7de73495730ad"
 
       - name: dotnet publish
         run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
