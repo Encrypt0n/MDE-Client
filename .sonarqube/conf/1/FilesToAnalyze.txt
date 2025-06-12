@@ -1,0 +1,5 @@
+﻿D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client.Domain\Models\Company.cs
+D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client.Domain\Models\DashboardPage.cs
+D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client.Domain\Models\Machine.cs
+D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client.Domain\Models\User.cs
+D:\School\OneDrive - Avans Hogeschool\Avans\Leerjaar4\Stage\Projecten\MDE-Client\MDE_Client.Domain\Models\UserActivityLog.cs

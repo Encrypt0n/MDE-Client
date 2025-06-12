@@ -9,15 +9,16 @@ using Microsoft.AspNetCore.Mvc;
 using System.Reflection.PortableExecutable;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using MDE_Client.Application.Interfaces;
 
 namespace MDE_Client.Pages.Machine
 {
     public class MachinesModel : PageModel
     {
-        private readonly MachineService _machineService;
+        private readonly IMachineService _machineService;
         private readonly AuthSession _authSession;
 
-        public MachinesModel(MachineService machineService, AuthSession authSession)
+        public MachinesModel(IMachineService machineService, AuthSession authSession)
         {
             _machineService = machineService;
             _authSession = authSession;

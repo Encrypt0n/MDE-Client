@@ -9,16 +9,17 @@ using System.Text;
 using System.Threading.Tasks;
 using MDE_Client.Application.Services;
 using MDE_Client.Application;
+using MDE_Client.Application.Interfaces;
 
 namespace MDE_Client.Pages.Auth
 {
     public class LoginModel : PageModel
     {
         private readonly ILogger<LoginModel> _logger;
-        private readonly AuthenticationService _authService;
+        private readonly IAuthenticationService _authService;
         private readonly AuthSession _authSession;
 
-        public LoginModel(ILogger<LoginModel> logger, AuthenticationService authService, AuthSession authSession)
+        public LoginModel(ILogger<LoginModel> logger, IAuthenticationService authService, AuthSession authSession)
         {
             _logger = logger;
             _authService = authService;

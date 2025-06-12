@@ -7,12 +7,13 @@ using Microsoft.IdentityModel.JsonWebTokens;
 using System.Diagnostics;
 using MDE_Client.Application.Services;
 using System.Security.Principal;
+using MDE_Client.Application.Interfaces;
 
 namespace MDE_Client.Application
 {
     public class AuthSession
     {
-        private readonly AuthenticationService _authService;
+        private readonly IAuthenticationService _authService;
         private readonly IConfiguration _config;
 
         public string? Token => _authService.GetToken();
@@ -22,7 +23,7 @@ namespace MDE_Client.Application
         public string? CompanyId { get; set; }
         public bool IsAuthenticated => !string.IsNullOrEmpty(UserId);
 
-        public AuthSession(AuthenticationService authService, IConfiguration config)
+        public AuthSession(IAuthenticationService authService, IConfiguration config)
         {
             _authService = authService;
             _config = config;

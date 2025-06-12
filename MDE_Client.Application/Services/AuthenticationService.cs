@@ -7,10 +7,11 @@ using System.Text;
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Configuration;
+using MDE_Client.Application.Interfaces;
 
 namespace MDE_Client.Application.Services
 {
-    public class AuthenticationService
+    public class AuthenticationService: IAuthenticationService
     {
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _config;

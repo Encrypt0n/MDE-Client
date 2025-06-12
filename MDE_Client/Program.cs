@@ -9,17 +9,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient(); // ✅ Register IHttpClientFactory
 
-builder.Services.AddSingleton<AuthenticationService>(); // Or scoped/transient as needed
+builder.Services.AddSingleton<IAuthenticationService, AuthenticationService>();
 builder.Services.AddSingleton<AuthSession>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+
 builder.Services.AddSingleton<IUserActivityService, UserActivityService>();
 builder.Services.AddSingleton<IUserService, UserService>();
-builder.Services.AddScoped<CompanyService>();
-builder.Services.AddSingleton<MachineService>();
-builder.Services.AddSingleton<DashboardService>();
+builder.Services.AddSingleton<ICompanyService, CompanyService>();
+builder.Services.AddSingleton<IMachineService, MachineService>();
+builder.Services.AddSingleton<IDashboardService, DashboardService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>

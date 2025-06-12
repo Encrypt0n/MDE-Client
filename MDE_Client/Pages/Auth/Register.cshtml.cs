@@ -1,4 +1,5 @@
-﻿using MDE_Client.Application.Services;
+﻿using MDE_Client.Application.Interfaces;
+using MDE_Client.Application.Services;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -12,9 +13,9 @@ namespace MDE_Client.Pages.Auth
     public class RegisterModel : PageModel
     {
         private readonly ILogger<RegisterModel> _logger;
-        private readonly AuthenticationService _authService;
+        private readonly IAuthenticationService _authService;
         private readonly CompanyService _companyService;
-        public RegisterModel(ILogger<RegisterModel> logger, AuthenticationService authService, CompanyService companyService)
+        public RegisterModel(ILogger<RegisterModel> logger, IAuthenticationService authService, CompanyService companyService)
         {
             _logger = logger;
             _authService = authService;

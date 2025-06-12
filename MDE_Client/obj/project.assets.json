@@ -727,7 +727,7 @@
           "System.Runtime": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.3/_._": {
+          "ref/netstandard1.3/System.Diagnostics.Debug.dll": {
             "related": ".xml"
           }
         }
@@ -1489,7 +1489,8 @@
           "MDE_Client.Domain": "1.0.0",
           "Microsoft.Data.SqlClient": "6.0.2",
           "Microsoft.Extensions.Configuration.Abstractions": "9.0.4",
-          "Microsoft.IdentityModel.JsonWebTokens": "8.9.0"
+          "Microsoft.IdentityModel.JsonWebTokens": "8.9.0",
+          "System.Diagnostics.Debug": "4.3.0"
         },
         "compile": {
           "bin/placeholder/MDE_Client.Application.dll": {}

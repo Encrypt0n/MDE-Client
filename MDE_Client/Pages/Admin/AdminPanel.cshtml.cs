@@ -12,11 +12,11 @@ namespace MDE_Client.Pages.Admin
     public class AdminPanelModel : PageModel
     {
         private readonly IUserService _userService;
-        private readonly MachineService _machineService;
-        private readonly CompanyService _companyService;
+        private readonly IMachineService _machineService;
+        private readonly ICompanyService _companyService;
         private readonly AuthSession _authSession;
 
-        public AdminPanelModel(IUserService userService, MachineService machineService, CompanyService companyService, AuthSession authSession)
+        public AdminPanelModel(IUserService userService, IMachineService machineService, ICompanyService companyService, AuthSession authSession)
         {
             _userService = userService;
             _machineService = machineService;
@@ -95,34 +95,38 @@ namespace MDE_Client.Pages.Admin
 
         public async Task<IActionResult> OnPostDownloadGeneratedAsync()
         {
-            if (_authSession.Role != "1")
+            if (_authSession.Role == "1")
+            {
+
+
+
+                await LoadUsersAsync();
+
+                if (SelectedUserId == 0 || string.IsNullOrEmpty(MachineName))
+                {
+                    ModelState.AddModelError("", "User and machine name must be provided.");
+                    return Page();
+                }
+                User user = await _userService.GetUserByIdAsync(SelectedUserId);
+                Company company = await _companyService.GetCompanyByIdAsync(user.CompanyID);
+                string ovpn = GenerateOvpnConfig(company.Name, MachineName, user.CompanyID, Description);
+
+                try
+                {
+
+
+
+                    var (fileContent, fileName) = await _machineService.GenerateConfigAsync(MachineName, ovpn, company, false);
+                    return File(fileContent, "application/zip", fileName);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", $"Failed to generate VPN config: {ex.Message}");
+                    return Page();
+                }
+            } else
             {
                 return Forbid(); // or RedirectToPage("/AccessDenied")
-            }
-
-            await LoadUsersAsync();
-
-            if (SelectedUserId == 0 || string.IsNullOrEmpty(MachineName))
-            {
-                ModelState.AddModelError("", "User and machine name must be provided.");
-                return Page();
-            }
-            User user = await _userService.GetUserByIdAsync(SelectedUserId);
-            Company company = await _companyService.GetCompanyByIdAsync(user.CompanyID);
-            string ovpn = GenerateOvpnConfig(company.Name, MachineName, user.CompanyID, Description);
-
-            try
-            {
-                
-
-                
-                var (fileContent, fileName) = await _machineService.GenerateClientConfigAsync(MachineName, ovpn, company);
-                return File(fileContent, "application/zip", fileName);
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", $"Failed to generate VPN config: {ex.Message}");
-                return Page();
             }
         }
 
@@ -161,6 +165,7 @@ setenv UV_CLIENT_NAME {companyName}_{machineName}
 setenv UV_CLIENT_DESCRIPTION ""{description}""
 push-peer-info
 auth-user-pass ""C:\\Program Files\\OpenVPN\\config\\auth.txt""
+route 10.8.0.0 255.255.255.0
 verb 3".Trim();
         }
     }
