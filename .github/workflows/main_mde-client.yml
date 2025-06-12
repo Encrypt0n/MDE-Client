@@ -40,7 +40,7 @@ jobs:
           dotnet sonarscanner begin \
             /k:"Encrypt0n_MDE-Client" \
             /o:"encrypt0n" \
-            /d:sonar.login="43481cfa073dc3c47dfbba6d8cb7de73495730ad" \
+            /d:sonar.login="1f247618fa45e45fc923d483cb5777bdcb55e84c" \
             /d:sonar.cs.opencover.reportsPaths="TestResults/coverage.opencover.xml" \
             /d:sonar.verbose=true \
             /d:sonar.projectBaseDir="%CD%\.."  # adjust if needed
@@ -49,7 +49,7 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: End SonarCloud analysis
-        run: dotnet sonarscanner end /d:sonar.login="43481cfa073dc3c47dfbba6d8cb7de73495730ad"
+        run: dotnet sonarscanner end /d:sonar.login="1f247618fa45e45fc923d483cb5777bdcb55e84c"
 
       - name: dotnet publish
         run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
