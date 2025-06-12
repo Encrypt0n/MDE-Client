@@ -87,7 +87,7 @@
                 // Toggle the command
                 vpnCommand.Command = vpnRunning ? "stop" : "start";
 
-                const localRes = await fetch("https://localhost:8787/vpn/", {
+                const localRes = await fetch("http://localhost:8787/vpn/", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(vpnCommand)
