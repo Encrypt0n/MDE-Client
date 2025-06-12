@@ -13,16 +13,16 @@ namespace MDE_Client.Pages.Machine
 {
     public class MachineModel : PageModel
     {
-        private readonly MachineService _machineService;
-        private readonly DashboardService _dashboardService;
+        private readonly IMachineService _machineService;
+        private readonly IDashboardService _dashboardService;
         private readonly IUserActivityService _userActivityService;
         private readonly IUserService _userService;
-        private readonly CompanyService _companyService;
+        private readonly ICompanyService _companyService;
         private readonly AuthSession _authSession;
         
 
 
-        public MachineModel(MachineService machineService, DashboardService dashboardService, IUserActivityService userActivityService, CompanyService companyService, IUserService userService, AuthSession authSession)
+        public MachineModel(IMachineService machineService, IDashboardService dashboardService, IUserActivityService userActivityService, ICompanyService companyService, IUserService userService, AuthSession authSession)
         {
             _machineService = machineService;
             _dashboardService = dashboardService;
@@ -68,18 +68,21 @@ namespace MDE_Client.Pages.Machine
 
         public async Task<IActionResult> OnPostSelectDashboardPageAsync()
         {
-            if (_authSession.Role != "1" || _authSession.Role != "2" || _authSession.Role != "4")
+            if (_authSession.Role == "1" || _authSession.Role == "2" || _authSession.Role == "4")
+            {
+                await _machineService.UpdateMachineDashboardUrlAsync(MachineId, SelectedPageUrl);
+
+                ActivityLogs = await _userActivityService.GetActivitiesForMachineAsync(MachineId); // 🔁 Add this
+                DashboardPages = await _dashboardService.GetDashboardPagesAsync(MachineId);
+                Machine = await _machineService.GetMachineByIdAsync(MachineId);
+
+                return Page();
+            } else
             {
                 return Forbid(); // or RedirectToPage("/AccessDenied");
             }
 
-            await _machineService.UpdateMachineDashboardUrlAsync(MachineId, SelectedPageUrl);
-
-            ActivityLogs = await _userActivityService.GetActivitiesForMachineAsync(MachineId); // 🔁 Add this
-            DashboardPages = await _dashboardService.GetDashboardPagesAsync(MachineId);
-            Machine = await _machineService.GetMachineByIdAsync(MachineId);
-
-            return Page();
+            
         }
 
 
@@ -98,7 +101,8 @@ namespace MDE_Client.Pages.Machine
 
 
 
-            var url = await _dashboardService.GetFirstDashboardPageUrlAsync(MachineId);
+            var dashboardUrl = await _dashboardService.GetFirstDashboardPageUrlAsync(MachineId);
+            var url = $"{dashboardUrl}?token={_authSession.Token}&machineId={MachineId}";
             if (!string.IsNullOrWhiteSpace(url))
             {
                 Process.Start(new ProcessStartInfo
@@ -137,41 +141,45 @@ namespace MDE_Client.Pages.Machine
 
         public async Task<IActionResult> OnPostStartVpnAsync()
         {
-            if (_authSession.Role != "1" && _authSession.Role != "2" && _authSession.Role != "4")
-                return Forbid();
-
-            Machine = await _machineService.GetMachineByIdAsync(MachineId);
-            if (Machine == null || string.IsNullOrWhiteSpace(Machine.IP))
-                return BadRequest("Invalid machine or IPC IP.");
-
-            string ovpnConfig = GenerateOvpnConfig(Machine.Name, int.Parse(_authSession.UserId), Machine.Description ?? "", Machine.IP);
-
-            byte[] zipBytes;
-            string zipFileName;
-
-            try
+            if (_authSession.Role == "1" || _authSession.Role == "2" || _authSession.Role == "4")
             {
-                Company company = await _companyService.GetCompanyByIdAsync(int.Parse(_authSession.CompanyId));
-                User user = await _userService.GetUserByIdAsync(int.Parse(_authSession.UserId));
-                var (fileContent, fileName) = await _machineService.GenerateUserConfigAsync(user.Username, ovpnConfig, company);
 
-                zipBytes = fileContent;
-                zipFileName = fileName;
+                Machine = await _machineService.GetMachineByIdAsync(MachineId);
+                if (Machine == null || string.IsNullOrWhiteSpace(Machine.IP))
+                    return BadRequest("Invalid machine or IPC IP.");
 
-                var vpnCommand = new
+                string ovpnConfig = GenerateOvpnConfig(Machine.Name, int.Parse(_authSession.UserId), Machine.Description ?? "", Machine.IP);
+
+                byte[] zipBytes;
+                string zipFileName;
+
+                try
                 {
-                    Command = "start",
-                    Username = _authSession.UserId,
-                    ZipFileName = zipFileName,
-                    ZipContentBase64 = Convert.ToBase64String(zipBytes),
-                    TargetIPC = Machine.IP
-                };
+                    Company company = await _companyService.GetCompanyByIdAsync(int.Parse(_authSession.CompanyId));
+                    User user = await _userService.GetUserByIdAsync(int.Parse(_authSession.UserId));
+                    var (fileContent, fileName) = await _machineService.GenerateConfigAsync(user.Username, ovpnConfig, company, true);
 
-                return new JsonResult(vpnCommand);
-            }
-            catch (Exception ex)
+                    zipBytes = fileContent;
+                    zipFileName = fileName;
+
+                    var vpnCommand = new
+                    {
+                        Command = "start",
+                        Username = _authSession.UserId,
+                        ZipFileName = zipFileName,
+                        ZipContentBase64 = Convert.ToBase64String(zipBytes),
+                        TargetIPC = Machine.IP
+                    };
+
+                    return new JsonResult(vpnCommand);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(new { error = $"Failed to generate VPN config: {ex.Message}" });
+                }
+            } else
             {
-                return BadRequest(new { error = $"Failed to generate VPN config: {ex.Message}" });
+                return Forbid();
             }
         }
 

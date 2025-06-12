@@ -6,6 +6,7 @@ using MDE_Client.Application.Interfaces;
 using System.Diagnostics;
 using System.Text.Json;
 using MDE_Client.Domain.Models;
+using System.Net.Http.Headers;
 
 namespace MDE_Client.Application.Services
 {
@@ -13,12 +14,21 @@ namespace MDE_Client.Application.Services
     {
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _config;
+        private readonly AuthSession _authSession;
 
-        public UserService(HttpClient httpClient, IConfiguration config)
+        public UserService(HttpClient httpClient, IConfiguration config, AuthSession authSession)
         {
             _httpClient = httpClient;
             _config = config;
             _httpClient.BaseAddress = new Uri(_config["Api:BaseUrl"]);
+            _authSession = authSession;
+
+            // Attach token to Authorization header
+            if (!string.IsNullOrEmpty(_authSession.Token))
+            {
+                _httpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", _authSession.Token);
+            }
         }
 
         // ✅ Get all users

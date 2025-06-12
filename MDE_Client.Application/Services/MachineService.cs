@@ -10,19 +10,30 @@ using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http.Json;
 using System.IO.Compression;
+using MDE_Client.Application.Interfaces;
+using System.Net.Http.Headers;
 
 namespace MDE_Client.Application.Services
 {
-    public class MachineService
+    public class MachineService: IMachineService
     {
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _config;
+        private readonly AuthSession _authSession;
 
-        public MachineService(HttpClient httpClient, IConfiguration config)
+        public MachineService(HttpClient httpClient, IConfiguration config, AuthSession authSession)
         {
             _httpClient = httpClient;
             _config = config;
             _httpClient.BaseAddress = new Uri(_config["Api:BaseUrl"]);
+            _authSession = authSession;
+
+            // Attach token to Authorization header
+            if (!string.IsNullOrEmpty(_authSession.Token))
+            {
+                _httpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", _authSession.Token);
+            }
         }
 
      
@@ -80,9 +91,9 @@ namespace MDE_Client.Application.Services
             return (updatedBytes, fileName);
         }
 
-        public async Task<(byte[] fileContent, string fileName)> GenerateClientConfigAsync(string machineName, string ovpn, Company company)
+        public async Task<(byte[] fileContent, string fileName)> GenerateConfigAsync(string machineName, string ovpn, Company company, bool user)
         {
-            var requestUri = $"api/vpn/generate-machine/{machineName}/{company.Name}/{company.Subnet}";
+            var requestUri = $"api/vpn/generate-cert/{machineName}/{company.Name}/{company.Subnet}/{user}";
             var response = await _httpClient.GetAsync(requestUri);
 
             if (!response.IsSuccessStatusCode)
@@ -124,6 +135,7 @@ namespace MDE_Client.Application.Services
 
         public async Task UpdateMachineDashboardUrlAsync(int machineId, string dashboardUrl)
         {
+            Debug.WriteLine("Roleee",  _authSession.Role);
             var content = JsonContent.Create(new { DashboardUrl = dashboardUrl });
             var response = await _httpClient.PostAsync($"api/machines/{machineId}/dashboard-url", content);
             response.EnsureSuccessStatusCode();

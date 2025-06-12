@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDE_Client.Domain", "MDE_Cl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDE_Client.Infrastructure", "MDE_Client.Infrastructure\MDE_Client.Infrastructure.csproj", "{68814740-8570-4083-A7C1-8D62039D19BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDE_Client.Tests", "MDE_Client.Tests\MDE_Client.Tests.csproj", "{E354D89D-3CA6-4C91-B0F9-5CDBDA305E85}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{68814740-8570-4083-A7C1-8D62039D19BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68814740-8570-4083-A7C1-8D62039D19BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68814740-8570-4083-A7C1-8D62039D19BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E354D89D-3CA6-4C91-B0F9-5CDBDA305E85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E354D89D-3CA6-4C91-B0F9-5CDBDA305E85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E354D89D-3CA6-4C91-B0F9-5CDBDA305E85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E354D89D-3CA6-4C91-B0F9-5CDBDA305E85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
