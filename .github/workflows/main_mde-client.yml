@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: read #This is required for actions/checkout
 
@@ -43,7 +43,7 @@ jobs:
             /d:sonar.login="1f247618fa45e45fc923d483cb5777bdcb55e84c" \
             /d:sonar.cs.opencover.reportsPaths="TestResults/coverage.opencover.xml" \
             /d:sonar.verbose=true \
-            /d:sonar.projectBaseDir="%CD%\.."  # adjust if needed
+            /d:sonar.projectBaseDir="$(pwd)/.."  # adjust if needed
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
