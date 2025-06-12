@@ -141,6 +141,7 @@ namespace MDE_Client.Pages.Machine
 
         public async Task<IActionResult> OnPostStartVpnAsync()
         {
+
             if (_authSession.Role == "1" || _authSession.Role == "2" || _authSession.Role == "4")
             {
 
