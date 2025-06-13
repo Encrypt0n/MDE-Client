@@ -19,14 +19,14 @@ namespace MDE_Client.Application.Services
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _config;
         private string _token;
-        private readonly ILogger<AuthenticationService> _logger;
+    
 
-        public AuthenticationService(HttpClient httpClient, IConfiguration config, ILogger<AuthenticationService> logger)
+        public AuthenticationService(HttpClient httpClient, IConfiguration config)
         {
             _httpClient = httpClient;
             _config = config;
             _httpClient.BaseAddress = new Uri(_config["Api:BaseUrl"]);
-            _logger = logger;
+            
         }
 
         public async Task Logout()
@@ -44,14 +44,14 @@ namespace MDE_Client.Application.Services
 
             var credentials = new { Username = username, Password = password };
             var response = await _httpClient.PostAsJsonAsync("api/auth/login", credentials);
-            _logger.LogInformation($"responseeee {response}");
+           
 
             if (response.IsSuccessStatusCode)
             {
                 var result = await response.Content.ReadFromJsonAsync<TokenResponse>();
                 if (result?.Token == null)
                 {
-                    _logger.LogWarning("No token returned from server.");
+                   
                     return false;
                 }
 
@@ -60,7 +60,7 @@ namespace MDE_Client.Application.Services
                 // Set Authorization header immediately after receiving the token
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _token);
 
-                _logger.LogInformation($"Token received: {_token}");
+              
 
                 await Task.Delay(200);
                 var principle = ValidateToken(_token);
