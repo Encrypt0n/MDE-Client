@@ -42,8 +42,8 @@ namespace MDE_Client.Application
 
                 UserId = 
                       jwt.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
-                Role = jwt.Claims.FirstOrDefault(c => c.Type == "typ")?.Value.ToString();
-                CompanyId = jwt.Claims.FirstOrDefault(c => c.Type == "nbf")?.Value.ToString();
+                Role = jwt.Claims.FirstOrDefault(c => c.Type == "role")?.Value.ToString();
+                CompanyId = jwt.Claims.FirstOrDefault(c => c.Type == "companyId")?.Value.ToString();
 
                 Debug.WriteLine("Parsed userId from token: " + UserId);
                 Debug.WriteLine("Parsed userId from token: " + Role);

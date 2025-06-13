@@ -9,6 +9,7 @@ namespace MDE_Client.Application.Interfaces
     public interface IAuthenticationService
     {
         Task<bool> LoginAsync(string username, string password);
+        Task Logout();
         Task<bool> RegisterAsync(string username, string password, int companyId);
         bool IsTokenValid();
         string GetToken();

@@ -43,7 +43,7 @@ namespace MDE_Client.Pages.Auth
                 Message = "❌ Please enter both username and password.";
                 return Page();
             }
-
+            await _authService.Logout();
             var success = await _authService.LoginAsync(Username, Password);
             if (success)
             {
