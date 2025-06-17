@@ -91,7 +91,7 @@ namespace MDE_Client.Application.Services
 
         public string GetToken() => _token;
 
-        public ClaimsPrincipal? ValidateToken(string token)
+        public async Task<ClaimsPrincipal?> ValidateToken(string token)
         {
             var publicKeyPath = "Keys/public.key";
 
@@ -110,6 +110,8 @@ namespace MDE_Client.Application.Services
             using var rsa = RSA.Create();
             rsa.ImportFromPem(publicKeyPem);
 
+            await Task.Delay(300);
+
             var handler = new JwtSecurityTokenHandler();
             try
             {
@@ -122,6 +124,7 @@ namespace MDE_Client.Application.Services
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new RsaSecurityKey(rsa),
                     ValidateLifetime = true,
+                    ClockSkew = TimeSpan.FromSeconds(10)
                     // ClockSkew = TimeSpan.FromMinutes(2)
                 };
 
