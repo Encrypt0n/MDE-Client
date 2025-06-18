@@ -46,11 +46,11 @@ jobs:
             /d:sonar.projectBaseDir="$(pwd)/.."  # adjust if needed
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build --no-incremental
 
       - name: Run tests with coverage
         run: |
-          coverlet ./MDE_Client.Tests/bin/Release/net8.0/MDE_Client.Tests.dll \
+          coverlet ./MDE_Client.Tests/bin/Debug/net8.0/MDE_Client.Tests.dll \
             --target "dotnet" \
             --targetargs "test --no-build --no-restore" \
             --format opencover \
