@@ -18,6 +18,7 @@ namespace MDE_Client.Tests
     using Microsoft.Playwright;
     using Xunit;
 
+    [Collection("E2E")]
     public class MachineE2ETests : IAsyncLifetime
     {
         private IPlaywright _playwright;
