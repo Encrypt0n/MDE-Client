@@ -57,7 +57,7 @@ jobs:
       
       - name: Unblock and install Windows service
         run: |
-          Unblock-File .\tools\MyVPNServiceInstaller.exe
+          Unblock-File .\MyVPNServiceInstaller.exe
           .\MyVPNServiceInstaller.exe /quiet /norestart
         shell: pwsh
     
