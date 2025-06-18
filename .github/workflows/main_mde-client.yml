@@ -48,6 +48,9 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --no-incremental
 
+      - name: Install Playwright Browsers
+        run: pwsh bin/Debug/net8.0/playwright.ps1 install
+
       - name: Run tests with coverage
         run: |
           coverlet ./MDE_Client.Tests/bin/Debug/net8.0/MDE_Client.Tests.dll \
