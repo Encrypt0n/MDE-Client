@@ -51,6 +51,16 @@ jobs:
       - name: Install Playwright Browsers
         run: pwsh ./MDE_Client.Tests/bin/Debug/net8.0/playwright.ps1 install
 
+      - name: Set PowerShell Execution Policy
+        run: Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+        shell: powershell
+      
+      - name: Unblock and install Windows service
+        run: |
+          Unblock-File .\tools\MyVPNServiceInstaller.exe
+          .\tools\MyVPNServiceInstaller.exe /quiet /norestart
+        shell: powershell
+    
 
 
       - name: Run tests with coverage
