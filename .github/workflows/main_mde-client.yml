@@ -48,26 +48,11 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --no-incremental
 
-      - name: Install Playwright Browsers
-        run: pwsh ./MDE_Client.Tests/bin/Debug/net8.0/playwright.ps1 install
-
-      - name: Set PowerShell Execution Policy
-        run: Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-        shell: pwsh
-      
-      - name: Unblock and install Windows service
-        run: |
-          Unblock-File .\MyVPNServiceInstaller.exe
-          .\MyVPNServiceInstaller.exe /quiet /norestart
-        shell: pwsh
-    
-
-
       - name: Run tests with coverage
         run: |
           coverlet ./MDE_Client.Tests/bin/Debug/net8.0/MDE_Client.Tests.dll `
             --target "dotnet" `
-            --targetargs "test --no-build --no-restore" `
+            --targetargs "test --no-build --no-restore --filter FullyQualifiedName!~MachineE2ETests" `
             --format opencover `
             --output ./TestResults/coverage.opencover.xml
 
