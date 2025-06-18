@@ -37,13 +37,13 @@ jobs:
 
       - name: Begin SonarCloud analysis
         run: |
-          dotnet sonarscanner begin \
-            /k:"Encrypt0n_MDE-Client" \
-            /o:"encrypt0n" \
-            /d:sonar.login="1f247618fa45e45fc923d483cb5777bdcb55e84c" \
-            /d:sonar.cs.opencover.reportsPaths="TestResults/coverage.opencover.xml" \
-            /d:sonar.verbose=true \
-            /d:sonar.projectBaseDir="$(pwd)/.."  # adjust if needed
+          dotnet sonarscanner begin `
+            /k:"Encrypt0n_MDE-Client" `
+            /o:"encrypt0n" `
+            /d:sonar.login="1f247618fa45e45fc923d483cb5777bdcb55e84c" `
+            /d:sonar.cs.opencover.reportsPaths="TestResults\coverage.opencover.xml" `
+            /d:sonar.verbose=true `
+            /d:sonar.projectBaseDir=".."
 
       - name: Build with dotnet
         run: dotnet build --no-incremental
