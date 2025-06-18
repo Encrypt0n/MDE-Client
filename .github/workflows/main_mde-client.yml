@@ -65,10 +65,10 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          coverlet ./MDE_Client.Tests/bin/Debug/net8.0/MDE_Client.Tests.dll \
-            --target "dotnet" \
-            --targetargs "test --no-build --no-restore" \
-            --format opencover \
+          coverlet ./MDE_Client.Tests/bin/Debug/net8.0/MDE_Client.Tests.dll `
+            --target "dotnet" `
+            --targetargs "test --no-build --no-restore" `
+            --format opencover `
             --output ./TestResults/coverage.opencover.xml
 
       - name: End SonarCloud analysis
