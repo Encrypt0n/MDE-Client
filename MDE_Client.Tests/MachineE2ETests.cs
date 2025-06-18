@@ -45,7 +45,7 @@ namespace MDE_Client.Tests
             });
 
             var page = await context.NewPageAsync();
-            await page.GotoAsync("http://localhost:7029/Auth/Login");
+            await page.GotoAsync("https://mde-client-hsamfdfncfc8edea.canadacentral-01.azurewebsites.net/Auth/Login");
 
             // Login using name attribute instead of id
             await page.FillAsync("[name=\"username\"]", "admin");
@@ -58,7 +58,7 @@ namespace MDE_Client.Tests
 
 
             // Navigate to Machine page
-            await page.GotoAsync("http://localhost:7029/Admin/AdminPanel");
+            await page.GotoAsync("https://mde-client-hsamfdfncfc8edea.canadacentral-01.azurewebsites.net/Admin/AdminPanel");
 
             // Select user
             await page.SelectOptionAsync("[name=\"SelectedUserId\"]", new[] { "4" }); // replace "1" with real user ID
@@ -94,13 +94,13 @@ namespace MDE_Client.Tests
                 AcceptDownloads = true
             });
             var _page = await context.NewPageAsync();
-            await _page.GotoAsync("http://localhost:7029/Auth/Login");
+            await _page.GotoAsync("https://mde-client-hsamfdfncfc8edea.canadacentral-01.azurewebsites.net/Auth/Login");
             // Login
             await _page.FillAsync("[name=\"username\"]", "engineer");
             await _page.FillAsync("[name=\"password\"]", "Welkom01");
             await _page.ClickAsync("button[type=submit]");
             // Navigate to Machine page
-            await _page.GotoAsync("http://localhost:7029/Machine/Machine/18");
+            await _page.GotoAsync("https://mde-client-hsamfdfncfc8edea.canadacentral-01.azurewebsites.net/Machine/Machine/1027");
 
             // Start VPN
             await _page.ClickAsync("button#startVpnBtn");
