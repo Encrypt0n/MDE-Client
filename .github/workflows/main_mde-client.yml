@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     permissions:
       contents: read #This is required for actions/checkout
 
@@ -53,13 +53,13 @@ jobs:
 
       - name: Set PowerShell Execution Policy
         run: Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-        shell: powershell
+        shell: pwsh
       
       - name: Unblock and install Windows service
         run: |
           Unblock-File .\tools\MyVPNServiceInstaller.exe
           .\MyVPNServiceInstaller.exe /quiet /norestart
-        shell: powershell
+        shell: pwsh
     
 
 
