@@ -48,6 +48,14 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
+      - name: Run tests with coverage
+        run: |
+          coverlet ./MDE_Client.Tests/bin/Release/net8.0/MDE_Client.Tests.dll \
+            --target "dotnet" \
+            --targetargs "test --no-build --no-restore" \
+            --format opencover \
+            --output ./TestResults/coverage.opencover.xml
+
       - name: End SonarCloud analysis
         run: dotnet sonarscanner end /d:sonar.login="1f247618fa45e45fc923d483cb5777bdcb55e84c"
 
