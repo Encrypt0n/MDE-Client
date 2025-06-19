@@ -52,9 +52,7 @@ namespace MDE_Client.Tests
             await page.FillAsync("[name=\"password\"]", "admin123");
             await page.ClickAsync("button[type=submit]");
 
-            await page.FillAsync("[name=\"username\"]", "admin");
-            await page.FillAsync("[name=\"password\"]", "admin123");
-            await page.ClickAsync("button[type=submit]");
+            
 
 
             // Navigate to Machine page
@@ -107,7 +105,7 @@ namespace MDE_Client.Tests
 
             // Intercept the POST response
             var responseTask = _page.WaitForResponseAsync(resp =>
-                resp.Url.Contains("/Machine/Machine/18?handler=StartVpn") && resp.Status == 200);
+                resp.Url.Contains("/Machine/Machine/1027?handler=StartVpn") && resp.Status == 200);
 
             var response = await responseTask;
             var jsonString = await response.TextAsync();
@@ -135,6 +133,8 @@ namespace MDE_Client.Tests
             var base64 = json.GetProperty("zipContentBase64").GetString();
             Assert.False(string.IsNullOrEmpty(base64));
             Assert.Matches(@"^[A-Za-z0-9+/=]+$", base64);
+
+            await Task.Delay(5000);
 
             // ---- CHECK IF A ROUTE TO 192.168.0.0 EXISTS ----
             bool routeFound = false;

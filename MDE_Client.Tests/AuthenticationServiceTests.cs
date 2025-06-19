@@ -9,6 +9,11 @@ using Moq;
 using Moq.Protected;
 using Xunit;
 using MDE_Client.Application.Services;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Reflection;
+using System.Security.Cryptography;
+using System.Text;
 
 public class AuthenticationServiceTests
 {
@@ -101,4 +106,105 @@ public class AuthenticationServiceTests
         var token = authService.GetToken();
         Assert.Equal("test-token", token);
     }
+
+    private void WritePublicKeyToDisk(RSA rsa)
+    {
+        var publicKeyPem = PemEncoding.Write("PUBLIC KEY", rsa.ExportSubjectPublicKeyInfo());
+        Directory.CreateDirectory("Keys");
+        File.WriteAllText("Keys/public.key", new string(publicKeyPem));
+    }
+
+
+    [Fact]
+    public async Task ValidateToken_WithValidToken_ReturnsClaimsPrincipal()
+    {
+        // Arrange
+        var rsa = RSA.Create(2048);
+        var rsaKey = new RsaSecurityKey(rsa);
+        var creds = new SigningCredentials(rsaKey, SecurityAlgorithms.RsaSha256);
+
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var descriptor = new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity(new[]
+            {
+            new Claim(JwtRegisteredClaimNames.Sub, "123"),
+            new Claim("role", "2"),
+            new Claim("companyId", "456")
+        }),
+            Expires = DateTime.UtcNow.AddMinutes(5),
+            Issuer = "TestIssuer",
+            Audience = "TestAudience",
+            SigningCredentials = creds
+        };
+
+        var token = tokenHandler.CreateToken(descriptor);
+        var jwt = tokenHandler.WriteToken(token);
+
+        // Write the public key to disk
+        WritePublicKeyToDisk(rsa);
+
+        var mockConfig = new Mock<IConfiguration>();
+        mockConfig.Setup(c => c["Jwt:Issuer"]).Returns("TestIssuer");
+        mockConfig.Setup(c => c["Jwt:Audience"]).Returns("TestAudience");
+
+        var httpClient = new HttpClient(); // not used
+        var authService = new AuthenticationService(_httpClient, _mockConfig.Object);
+
+        // Act
+        var result = await authService.ValidateToken(jwt);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.True(result.Identity.IsAuthenticated);
+     
+    }
+
+
+    [Fact]
+    public void IsTokenValid_WithValidToken_ReturnsTrue()
+    {
+        // Arrange
+        var rsa = RSA.Create(2048);
+        var rsaKey = new RsaSecurityKey(rsa);
+        var creds = new SigningCredentials(rsaKey, SecurityAlgorithms.RsaSha256);
+
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var descriptor = new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity(new[]
+            {
+            new Claim(JwtRegisteredClaimNames.Sub, "123"),
+            new Claim("role", "2"),
+            new Claim("companyId", "456")
+        }),
+            Expires = DateTime.UtcNow.AddMinutes(5),
+            Issuer = "TestIssuer",
+            Audience = "TestAudience",
+            SigningCredentials = creds
+        };
+
+        var token = tokenHandler.CreateToken(descriptor);
+        var jwt = tokenHandler.WriteToken(token);
+
+        WritePublicKeyToDisk(rsa);
+
+        var mockConfig = new Mock<IConfiguration>();
+        mockConfig.Setup(c => c["Jwt:Issuer"]).Returns("TestIssuer");
+        mockConfig.Setup(c => c["Jwt:Audience"]).Returns("TestAudience");
+
+        var httpClient = new HttpClient(); // not used
+        var authService = new AuthenticationService(_httpClient, _mockConfig.Object);
+
+        // Use reflection to set _token private field
+        var field = typeof(AuthenticationService).GetField("_token", BindingFlags.NonPublic | BindingFlags.Instance);
+        field.SetValue(authService, jwt);
+
+        // Act
+        var isValid = authService.IsTokenValid();
+
+        // Assert
+        Assert.True(isValid);
+    }
+
 }
