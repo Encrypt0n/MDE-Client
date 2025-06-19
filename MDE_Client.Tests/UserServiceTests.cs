@@ -92,10 +92,21 @@ public class UserServiceTests
                 ItExpr.IsAny<CancellationToken>())
             .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.InternalServerError));
 
+        HttpRequestMessage capturedRequest = null;
+
+
+        // Manually attach mocked token
+        _httpClient.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", "mocked-token");
+
         var service = new UserService(_httpClient, _mockConfig.Object, _authSession);
         var users = await service.GetAllUsersAsync();
 
         Assert.Empty(users);
+        // ✅ Assert Authorization header was sent correctly
+        Assert.NotNull(capturedRequest.Headers.Authorization);
+        Assert.Equal("Bearer", capturedRequest.Headers.Authorization.Scheme);
+        Assert.Equal("mocked-token", capturedRequest.Headers.Authorization.Parameter);
     }
 
     [Fact]
@@ -107,10 +118,23 @@ public class UserServiceTests
                 ItExpr.IsAny<CancellationToken>())
             .ThrowsAsync(new HttpRequestException("Network error"));
 
+        HttpRequestMessage capturedRequest = null;
+
+
+        // Manually attach mocked token
+        _httpClient.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", "mocked-token");
+
         var service = new UserService(_httpClient, _mockConfig.Object, _authSession);
         var users = await service.GetAllUsersAsync();
 
         Assert.Empty(users);
+
+        Assert.Empty(users);
+        // ✅ Assert Authorization header was sent correctly
+        Assert.NotNull(capturedRequest.Headers.Authorization);
+        Assert.Equal("Bearer", capturedRequest.Headers.Authorization.Scheme);
+        Assert.Equal("mocked-token", capturedRequest.Headers.Authorization.Parameter);
     }
 
     [Fact]
@@ -129,10 +153,22 @@ public class UserServiceTests
                 Content = JsonContent.Create(expectedUser)
             });
 
+        HttpRequestMessage capturedRequest = null;
+
+
+        // Manually attach mocked token
+        _httpClient.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", "mocked-token");
+
         var service = new UserService(_httpClient, _mockConfig.Object, _authSession);
         var user = await service.GetUserByIdAsync(5);
 
         Assert.NotNull(user);
         Assert.Equal("carol", user.Username);
+
+        // ✅ Assert Authorization header was sent correctly
+        Assert.NotNull(capturedRequest.Headers.Authorization);
+        Assert.Equal("Bearer", capturedRequest.Headers.Authorization.Scheme);
+        Assert.Equal("mocked-token", capturedRequest.Headers.Authorization.Parameter);
     }
 }
