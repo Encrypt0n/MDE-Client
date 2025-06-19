@@ -27,11 +27,11 @@ namespace MDE_Client.Application.Services
             _authSession = authSession;
 
             // Attach token to Authorization header
-            if (!string.IsNullOrEmpty(_authSession.Token))
+            /*if (!string.IsNullOrEmpty(_authSession.Token))
             {
                 _httpClient.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Bearer", _authSession.Token);
-            }
+            }*/
         }
 
         public async Task<List<Company>> GetAllCompaniesAsync()

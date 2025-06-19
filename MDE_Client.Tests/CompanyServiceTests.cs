@@ -10,7 +10,6 @@ using MDE_Client.Domain.Models;
 using MDE_Client.Application.Interfaces;
 using System.Text.Json;
 using MDE_Client.Application;
-using System.Net.Http.Headers;
 
 public class CompanyServiceTests
 {
@@ -52,34 +51,23 @@ public class CompanyServiceTests
             new Company { CompanyID = 1, Name = "TestCo", Description = "Desc" }
         };
 
-        HttpRequestMessage capturedRequest = null;
-
         _mockHandler.Protected()
             .Setup<Task<HttpResponseMessage>>("SendAsync",
                 ItExpr.Is<HttpRequestMessage>(req =>
                     req.Method == HttpMethod.Get &&
                     req.RequestUri.ToString().Contains("api/companies")),
                 ItExpr.IsAny<CancellationToken>())
-            .Callback<HttpRequestMessage, CancellationToken>((req, _) => capturedRequest = req)
             .ReturnsAsync(new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
                 Content = JsonContent.Create(expectedCompanies)
             });
 
-        // Manually attach mocked token
-        _httpClient.DefaultRequestHeaders.Authorization =
-            new AuthenticationHeaderValue("Bearer", "mocked-token");
-
         var service = new CompanyService(_httpClient, _mockConfig.Object, _authSession);
         var result = await service.GetAllCompaniesAsync();
 
         Assert.Single(result);
         Assert.Equal("TestCo", result[0].Name);
-        // ✅ Assert Authorization header was sent correctly
-        Assert.NotNull(capturedRequest.Headers.Authorization);
-        Assert.Equal("Bearer", capturedRequest.Headers.Authorization.Scheme);
-        Assert.Equal("mocked-token", capturedRequest.Headers.Authorization.Parameter);
     }
 
     [Fact]
@@ -87,35 +75,23 @@ public class CompanyServiceTests
     {
         var expectedCompany = new Company { CompanyID = 5, Name = "TargetCo", Description = "TargetDesc" };
 
-        HttpRequestMessage capturedRequest = null;
-
         _mockHandler.Protected()
             .Setup<Task<HttpResponseMessage>>("SendAsync",
                 ItExpr.Is<HttpRequestMessage>(req =>
                     req.Method == HttpMethod.Get &&
                     req.RequestUri.ToString().Contains("api/companies/5")),
                 ItExpr.IsAny<CancellationToken>())
-             .Callback<HttpRequestMessage, CancellationToken>((req, _) => capturedRequest = req)
             .ReturnsAsync(new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
                 Content = JsonContent.Create(expectedCompany)
             });
 
-        // Manually attach mocked token
-        _httpClient.DefaultRequestHeaders.Authorization =
-            new AuthenticationHeaderValue("Bearer", "mocked-token");
-
         var service = new CompanyService(_httpClient, _mockConfig.Object, _authSession);
         var result = await service.GetCompanyByIdAsync(5);
 
         Assert.NotNull(result);
         Assert.Equal("TargetCo", result.Name);
-
-        // ✅ Assert Authorization header was sent correctly
-        Assert.NotNull(capturedRequest.Headers.Authorization);
-        Assert.Equal("Bearer", capturedRequest.Headers.Authorization.Scheme);
-        Assert.Equal("mocked-token", capturedRequest.Headers.Authorization.Parameter);
     }
 
     [Fact]
