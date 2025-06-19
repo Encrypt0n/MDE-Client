@@ -105,14 +105,10 @@ namespace MDE_Client.Pages.Machine
             var url = $"{dashboardUrl}?token={_authSession.Token}&machineId={MachineId}";
             if (!string.IsNullOrWhiteSpace(url))
             {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = url,
-                    UseShellExecute = true
-                });
+                return Redirect(url);
             }
 
-            return RedirectToPage(new { machineId = MachineId });
+            
         }
 
         public async Task<IActionResult> OnPostAddPageAsync()
