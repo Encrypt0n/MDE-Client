@@ -14,8 +14,8 @@ namespace MDE_Client.Pages.Auth
     {
         private readonly ILogger<RegisterModel> _logger;
         private readonly IAuthenticationService _authService;
-        private readonly CompanyService _companyService;
-        public RegisterModel(ILogger<RegisterModel> logger, IAuthenticationService authService, CompanyService companyService)
+        private readonly ICompanyService _companyService;
+        public RegisterModel(ILogger<RegisterModel> logger, IAuthenticationService authService, ICompanyService companyService)
         {
             _logger = logger;
             _authService = authService;
