@@ -108,7 +108,7 @@ namespace MDE_Client.Pages.Machine
                 return Redirect(url);
             }
 
-            
+            return RedirectToPage(new { machineId = MachineId });
         }
 
         public async Task<IActionResult> OnPostAddPageAsync()
