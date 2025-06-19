@@ -1,0 +1,14 @@
+{
+  "stryker-config": {
+    "mutate": [
+      "**/*.cs",
+      "!**/MDE_Client/Pages/Error.cshtml.cs",
+      "!**/MDE_Client/Pages/Index.cshtml.cs",
+      "!**/MDE_Client/Pages/Privacy.cshtml.cs",
+      "!**/MDE_Client/Pages/Machine/Machines.cshtml.cs",
+      "!**/MDE_Client/Pages/Error.cshtml",
+      "!**/MDE_Client/Program.cs",
+      "!**/MDE_Client.Application/AuthSession.cs"
+    ]
+  }
+}

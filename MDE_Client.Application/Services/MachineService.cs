@@ -29,11 +29,11 @@ namespace MDE_Client.Application.Services
             _authSession = authSession;
 
             // Attach token to Authorization header
-            /*if (!string.IsNullOrEmpty(_authSession.Token))
+            if (!string.IsNullOrEmpty(_authSession.Token))
             {
                 _httpClient.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Bearer", _authSession.Token);
-            }*/
+            }
         }
 
      
@@ -135,7 +135,7 @@ namespace MDE_Client.Application.Services
 
         public async Task UpdateMachineDashboardUrlAsync(int machineId, string dashboardUrl)
         {
-            Debug.WriteLine("Roleee",  _authSession.Role);
+           // Debug.WriteLine("Roleee",  _authSession.Role);
             var content = JsonContent.Create(new { DashboardUrl = dashboardUrl });
             var response = await _httpClient.PostAsync($"api/machines/{machineId}/dashboard-url", content);
             response.EnsureSuccessStatusCode();
