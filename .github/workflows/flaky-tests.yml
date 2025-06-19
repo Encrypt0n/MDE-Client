@@ -1,0 +1,97 @@
+name: Flaky Test Detector
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  run-tests-multiple-times:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        run: [1, 2, 3, 4, 5]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+
+      - name: Install Coverlet
+        run: dotnet tool install --global coverlet.console
+
+      - name: Add dotnet tools to PATH
+        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build solution
+        run: dotnet build --no-incremental
+
+      - name: Run tests with coverage and trx log (Run ${{ matrix.run }})
+        run: |
+          coverlet ./MDE_Client.Tests/bin/Debug/net8.0/MDE_Client.Tests.dll \
+            --target "dotnet" \
+            --targetargs "test MDE_Client.Tests/MDE_Client.Tests.csproj --no-build --no-restore --filter FullyQualifiedName!~MachineE2ETests --logger \"trx;LogFileName=TestResults_${{ matrix.run }}.trx\"" \
+            --format cobertura \
+            --output ./TestResults/Coverage_${{ matrix.run }}.cobertura.xml
+
+          
+
+      - name: Upload test results and coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-run-${{ matrix.run }}
+          path: |
+            **/TestResults/TestResults_${{ matrix.run }}.trx
+            **/TestResults/Coverage_${{ matrix.run }}.cobertura.xml
+
+  summarize-results:
+    runs-on: ubuntu-latest
+    needs: run-tests-multiple-times
+    steps:
+      - name: Download all test artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./artifacts
+
+      - name: List all .trx files
+        run: find ./artifacts -name "*.trx"
+
+      - name: Install trx2junit
+        run: |
+          dotnet tool install --global trx2junit
+          dotnet tool install -g dotnet-reportgenerator-globaltool
+
+      - name: Convert .trx to .xml
+        run: |
+          for file in $(find ./artifacts -name "*.trx"); do
+            trx2junit "$file"
+          done
+
+      - 
+
+
+
+      - name: Print flaky test summary in log
+        run: |
+          echo "### Flaky Test Run Summary"
+          totalRuns=0
+          totalFailures=0
+          for file in $(find . -name "TestResults_*.xml"); do
+            runName=$(basename "$file" .xml)
+            failures=$(grep -o "<failure>" "$file" | wc -l)
+            echo "- $runName: $failures failures"
+            totalRuns=$((totalRuns+1))
+            totalFailures=$((totalFailures+failures))
+          done
+          echo "- Total Runs: $totalRuns"
+          echo "- Total Failures: $totalFailures"
+
+      
