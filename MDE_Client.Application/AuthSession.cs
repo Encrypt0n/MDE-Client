@@ -17,7 +17,7 @@ namespace MDE_Client.Application
         private readonly IConfiguration _config;
 
         public string? Token => _authService.GetToken();
-        public string? UserId { get; private set; }
+        public string? UserId { get; set; }
 
         public string? Role { get; set; }
         public string? CompanyId { get; set; }

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.3.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.5" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="Microsoft.Playwright" Version="1.52.0" />
@@ -21,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MDE_Client.Application\MDE_Client.Application.csproj" />
+    <ProjectReference Include="..\MDE_Client\MDE_Client.csproj" />
   </ItemGroup>
 
   <ItemGroup>
