@@ -102,7 +102,7 @@ namespace MDE_Client.Pages.Machine
 
 
             var dashboardUrl = await _dashboardService.GetFirstDashboardPageUrlAsync(MachineId);
-            var url = $"{dashboardUrl}?token={_authSession.Token}&machineId={MachineId}";
+            var url = $"{dashboardUrl}?token={_authSession.Token}";
             if (!string.IsNullOrWhiteSpace(url))
             {
                 return Redirect(url);

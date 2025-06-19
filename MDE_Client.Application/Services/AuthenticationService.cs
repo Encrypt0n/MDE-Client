@@ -39,8 +39,8 @@ namespace MDE_Client.Application.Services
         public async Task<bool> LoginAsync(string username, string password)
         {
             // Clear old token just to be safe
-            _token = null;
-            _httpClient.DefaultRequestHeaders.Authorization = null;
+           // _token = null;
+           // _httpClient.DefaultRequestHeaders.Authorization = null;
 
             var credentials = new { Username = username, Password = password };
             var response = await _httpClient.PostAsJsonAsync("api/auth/login", credentials);
@@ -64,6 +64,8 @@ namespace MDE_Client.Application.Services
 
                 await Task.Delay(200);
                 var principle = ValidateToken(_token);
+                Debug.WriteLine("principleee ", principle);
+                Debug.WriteLine("tokennnnn ", _token);
 
                 // Now check token validity
                 if (principle != null)
