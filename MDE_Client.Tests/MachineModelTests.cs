@@ -8,6 +8,7 @@ using Moq;
 using System.Collections.ObjectModel;
 using System.Text;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Http;
 
 public class MachineModelTests
 {
@@ -51,7 +52,75 @@ public class MachineModelTests
         Assert.IsType<ForbidResult>(result);
     }
 
-   
+    [Fact]
+    public async Task OnPostSelectDashboardPageAsync_ReturnsPage_WhenAuthorized()
+    {
+        var model = CreateModel(role: "2", companyId: "5", userId: "2");
+        model.MachineId = 1;
+        model.SelectedPageUrl = "/dashboard/page1";
+
+        _mockMachineService.Setup(s => s.UpdateMachineDashboardUrlAsync(1, "/dashboard/page1")).Returns(Task.CompletedTask);
+        _mockUserActivityService.Setup(s => s.GetActivitiesForMachineAsync(1))
+            .ReturnsAsync(new ObservableCollection<UserActivityLog>());
+        _mockDashboardService.Setup(s => s.GetDashboardPagesAsync(1))
+            .ReturnsAsync(new ObservableCollection<DashboardPage>());
+        _mockMachineService.Setup(s => s.GetMachineByIdAsync(1))
+            .ReturnsAsync(new MDE_Client.Domain.Models.Machine());
+
+        var result = await model.OnPostSelectDashboardPageAsync();
+
+        Assert.IsType<PageResult>(result);
+    }
+
+    [Fact]
+    public async Task OnPostSelectDashboardPageAsync_ReturnsForbid_WhenUnauthorized()
+    {
+        var model = CreateModel(role: "3", companyId: "5", userId: "2");
+
+        var result = await model.OnPostSelectDashboardPageAsync();
+
+        Assert.IsType<ForbidResult>(result);
+    }
+
+    [Fact]
+    public async Task OnPostOpenDashboardAsync_RedirectsToDashboard_WhenUrlIsValid()
+    {
+        var model = CreateModel(role: "2", companyId: "5", userId: "5", token: "mocktoken");
+        model.MachineId = 1;
+
+        var context = new DefaultHttpContext();
+        context.Connection.RemoteIpAddress = System.Net.IPAddress.Parse("192.168.0.10");
+        context.Request.Headers["User-Agent"] = "MockBrowser";
+        model.PageContext = new PageContext { HttpContext = context };
+
+        _mockUserActivityService
+     .Setup(s => s.GetActivitiesForMachineAsync(1))
+     .ReturnsAsync(new ObservableCollection<UserActivityLog>
+     {
+        new UserActivityLog
+        {
+            UserId = 5,
+            MachineId = 1,
+            Action = "OpenDashboard",
+            Target = "Dashboard:FirstPage",
+            IpAddress = "192.168.1.100",
+            UserAgent = "TestAgent"
+        }
+     });
+
+
+       // _mockUserActivityService.Setup(s => s.LogActivityAsync(It.IsAny<UserActivityLog>()))
+            //.Returns(Task.CompletedTask);
+        _mockDashboardService.Setup(s => s.GetFirstDashboardPageUrlAsync(1))
+            .ReturnsAsync("https://mockdashboard/page");
+
+        var result = await model.OnPostOpenDashboardAsync();
+
+        var redirect = Assert.IsType<RedirectResult>(result);
+        Assert.Contains("token", redirect.Url);
+    }
+
+
 
     [Fact]
     public async Task OnPostStartVpnAsync_ReturnsJsonResult_WhenSuccessful()
