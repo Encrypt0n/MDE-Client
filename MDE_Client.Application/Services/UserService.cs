@@ -24,12 +24,12 @@ namespace MDE_Client.Application.Services
             _authSession = authSession;
 
             // Attach token to Authorization header
-           /* if (!string.IsNullOrEmpty(_authSession.Token))
+            if (!string.IsNullOrEmpty(_authSession.Token))
             {
                // Debug.WriteLine("tooookkeeennnnnnnn", _authSession.Token);
                 _httpClient.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Bearer", _authSession.Token);
-            }*/
+            }
         }
 
         // ✅ Get all users
@@ -40,24 +40,24 @@ namespace MDE_Client.Application.Services
                 var response = await _httpClient.GetAsync("api/users");
                 if (!response.IsSuccessStatusCode)
                 {
-                    Debug.WriteLine($"[UserService] HTTP request failed: {response.StatusCode}");
+                  
                     return new ObservableCollection<User>();
                 }
 
                 var json = await response.Content.ReadAsStringAsync();
-                Debug.WriteLine($"[UserService] Raw JSON: {json}");
+                //Debug.WriteLine($"[UserService] Raw JSON: {json}");
 
                 var users = JsonSerializer.Deserialize<ObservableCollection<User>>(json, new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
                 });
 
-                Debug.WriteLine($"[UserService] Deserialized {users?.Count} users");
+                //Debug.WriteLine($"[UserService] Deserialized {users?.Count} users");
                 return users ?? new ObservableCollection<User>();
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[UserService] Exception: {ex.Message}");
+               // Debug.WriteLine($"[UserService] Exception: {ex.Message}");
                 return new ObservableCollection<User>();
             }
         }

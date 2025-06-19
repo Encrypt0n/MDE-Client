@@ -64,18 +64,18 @@ namespace MDE_Client.Application.Services
 
                 await Task.Delay(200);
                 var principle = ValidateToken(_token);
-                Debug.WriteLine("principleee ", principle);
-                Debug.WriteLine("tokennnnn ", _token);
+              //  Debug.WriteLine("principleee ", principle);
+              //  Debug.WriteLine("tokennnnn ", _token);
 
                 // Now check token validity
                 if (principle != null)
                 {
-                    Debug.WriteLine("✅ Token is valid.");
+                   // Debug.WriteLine("✅ Token is valid.");
                     return true;
                 }
                 else
                 {
-                    Debug.WriteLine("❌ Token is invalid.");
+                   // Debug.WriteLine("❌ Token is invalid.");
                 }
             }
 
@@ -100,13 +100,13 @@ namespace MDE_Client.Application.Services
             // Check if the public key file exists and log it
             if (!File.Exists(publicKeyPath))
             {
-                Debug.WriteLine("Public key file not found.");
+           //     Debug.WriteLine("Public key file not found.");
                 throw new FileNotFoundException("Public key not found.");
             }
 
             // Read the public key content
             var publicKeyPem = File.ReadAllText(publicKeyPath);
-            Debug.WriteLine("Public key loaded from: " + publicKeyPath);
+           // Debug.WriteLine("Public key loaded from: " + publicKeyPath);
 
             // Create RSA instance and load the public key
             using var rsa = RSA.Create();
@@ -144,25 +144,25 @@ namespace MDE_Client.Application.Services
             try
             {
                 // Debugging if the token is being checked
-                Debug.WriteLine("Starting token validation...");
+                //Debug.WriteLine("Starting token validation...");
 
                 var publicKeyPath = "Keys/public.key";
 
                 // Check if the public key file exists and log it
                 if (!File.Exists(publicKeyPath))
                 {
-                    Debug.WriteLine("Public key file not found.");
+                    //Debug.WriteLine("Public key file not found.");
                     throw new FileNotFoundException("Public key not found.");
                 }
 
                 // Read the public key content
                 var publicKeyPem = File.ReadAllText(publicKeyPath);
-                Debug.WriteLine("Public key loaded from: " + publicKeyPath);
+               // Debug.WriteLine("Public key loaded from: " + publicKeyPath);
 
                 // Create RSA instance and load the public key
                 using var rsa = RSA.Create();
                 rsa.ImportFromPem(publicKeyPem);
-                Debug.WriteLine("Public key successfully imported.");
+               // Debug.WriteLine("Public key successfully imported.");
 
                 // Initialize the JWT handler
                 var handler = new JsonWebTokenHandler();
@@ -176,7 +176,7 @@ namespace MDE_Client.Application.Services
 
 
                 // Log the token being validated (this can be sensitive, be careful in production environments)
-                Debug.WriteLine("Validating token: " + _token.Substring(0, 50) + "...");  // Show the first 50 chars for visibility
+               // Debug.WriteLine("Validating token: " + _token.Substring(0, 50) + "...");  // Show the first 50 chars for visibility
 
                 // Validate the token with the defined parameters
                 var result = handler.ValidateToken(_token, new TokenValidationParameters
@@ -192,7 +192,7 @@ namespace MDE_Client.Application.Services
                 });
                 
                 // Log result of validation
-                Debug.WriteLine("Token validation completed. Valid: " + result.IsValid);
+              //  Debug.WriteLine("Token validation completed. Valid: " + result.IsValid);
 
                 // Return the validity of the token
                 return result.IsValid;
@@ -200,8 +200,8 @@ namespace MDE_Client.Application.Services
             catch (Exception ex)
             {
                 // Log the exception for debugging purposes
-                Debug.WriteLine("Error during token validation: " + ex.Message);
-                Debug.WriteLine("Stack Trace: " + ex.StackTrace);
+              //  Debug.WriteLine("Error during token validation: " + ex.Message);
+              //  Debug.WriteLine("Stack Trace: " + ex.StackTrace);
                 return false;
             }
         }
