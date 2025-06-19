@@ -13,6 +13,7 @@ using MDE_Client.Application.Services;
 using MDE_Client.Application.Interfaces;
 using MDE_Client.Domain.Models;
 using MDE_Client.Application;
+using System.Net.Http.Headers;
 
 public class UserServiceTests
 {
@@ -44,11 +45,11 @@ public class UserServiceTests
     public async Task GetAllUsersAsync_ReturnsUsers_WhenSuccessful()
     {
         var json = """
-        [
-            { "Id": 1, "Username": "alice" },
-            { "Id": 2, "Username": "bob" }
-        ]
-        """;
+    [
+        { "Id": 1, "Username": "alice" },
+        { "Id": 2, "Username": "bob" }
+    ]
+    """;
 
         HttpRequestMessage capturedRequest = null;
 
@@ -63,18 +64,24 @@ public class UserServiceTests
                 Content = new StringContent(json)
             });
 
-        var service = new UserService(_httpClient, _mockConfig.Object, _authSession);
+        // Manually attach mocked token
+        _httpClient.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", "mocked-token");
+
+        var service = new UserService(_httpClient, _mockConfig.Object, _authSession); // null AuthSession since unused
+
         var users = await service.GetAllUsersAsync();
 
         Assert.Equal(2, users.Count);
         Assert.Contains(users, u => u.Username == "alice");
         Assert.Contains(users, u => u.Username == "bob");
 
-        // Check headers (Authorization + User-Agent)
-        
-       
-
+        // ✅ Assert Authorization header was sent correctly
+        Assert.NotNull(capturedRequest.Headers.Authorization);
+        Assert.Equal("Bearer", capturedRequest.Headers.Authorization.Scheme);
+        Assert.Equal("mocked-token", capturedRequest.Headers.Authorization.Parameter);
     }
+
 
     [Fact]
     public async Task GetAllUsersAsync_ReturnsEmptyCollection_WhenHttpFails()
