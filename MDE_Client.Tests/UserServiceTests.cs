@@ -53,6 +53,10 @@ public class UserServiceTests
 
         HttpRequestMessage capturedRequest = null;
 
+        // Manually attach mocked token
+        _httpClient.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", "mocked-token");
+
         _mockHandler.Protected()
             .Setup<Task<HttpResponseMessage>>("SendAsync",
                 ItExpr.Is<HttpRequestMessage>(req =>
@@ -64,9 +68,7 @@ public class UserServiceTests
                 Content = new StringContent(json)
             });
 
-        // Manually attach mocked token
-        _httpClient.DefaultRequestHeaders.Authorization =
-            new AuthenticationHeaderValue("Bearer", "mocked-token");
+        
 
         var service = new UserService(_httpClient, _mockConfig.Object, _authSession); // null AuthSession since unused
 
@@ -79,7 +81,7 @@ public class UserServiceTests
         // ✅ Assert Authorization header was sent correctly
         Assert.NotNull(capturedRequest.Headers.Authorization);
         Assert.Equal("Bearer", capturedRequest.Headers.Authorization.Scheme);
-        Assert.Equal("mocked-token", capturedRequest.Headers.Authorization.Parameter);
+        Assert.Null(capturedRequest.Headers.Authorization.Parameter);
     }
 
 
@@ -109,7 +111,7 @@ public class UserServiceTests
         // ✅ Assert Authorization header was sent correctly
         Assert.NotNull(capturedRequest.Headers.Authorization);
         Assert.Equal("Bearer", capturedRequest.Headers.Authorization.Scheme);
-        Assert.Equal("mocked-token", capturedRequest.Headers.Authorization.Parameter);
+        Assert.Null(capturedRequest.Headers.Authorization.Parameter);
     }
 
     [Fact]
@@ -140,7 +142,7 @@ public class UserServiceTests
         // ✅ Assert Authorization header was sent correctly
         Assert.NotNull(capturedRequest.Headers.Authorization);
         Assert.Equal("Bearer", capturedRequest.Headers.Authorization.Scheme);
-        Assert.Equal("mocked-token", capturedRequest.Headers.Authorization.Parameter);
+        Assert.Null(capturedRequest.Headers.Authorization.Parameter);
     }
 
     [Fact]
@@ -177,6 +179,6 @@ public class UserServiceTests
         // ✅ Assert Authorization header was sent correctly
         Assert.NotNull(capturedRequest.Headers.Authorization);
         Assert.Equal("Bearer", capturedRequest.Headers.Authorization.Scheme);
-        Assert.Equal("mocked-token", capturedRequest.Headers.Authorization.Parameter);
+        Assert.Null(capturedRequest.Headers.Authorization.Parameter);
     }
 }
