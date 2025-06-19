@@ -86,13 +86,16 @@ public class UserServiceTests
     [Fact]
     public async Task GetAllUsersAsync_ReturnsEmptyCollection_WhenHttpFails()
     {
+        HttpRequestMessage capturedRequest = null;
+
         _mockHandler.Protected()
             .Setup<Task<HttpResponseMessage>>("SendAsync",
                 ItExpr.IsAny<HttpRequestMessage>(),
                 ItExpr.IsAny<CancellationToken>())
+            .Callback<HttpRequestMessage, CancellationToken>((req, _) => capturedRequest = req)
             .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.InternalServerError));
 
-        HttpRequestMessage capturedRequest = null;
+        
 
 
         // Manually attach mocked token
@@ -112,13 +115,16 @@ public class UserServiceTests
     [Fact]
     public async Task GetAllUsersAsync_ReturnsEmptyCollection_WhenExceptionThrown()
     {
+        HttpRequestMessage capturedRequest = null;
+
         _mockHandler.Protected()
             .Setup<Task<HttpResponseMessage>>("SendAsync",
                 ItExpr.IsAny<HttpRequestMessage>(),
                 ItExpr.IsAny<CancellationToken>())
+            .Callback<HttpRequestMessage, CancellationToken>((req, _) => capturedRequest = req)
             .ThrowsAsync(new HttpRequestException("Network error"));
 
-        HttpRequestMessage capturedRequest = null;
+        
 
 
         // Manually attach mocked token
@@ -141,6 +147,7 @@ public class UserServiceTests
     public async Task GetUserByIdAsync_ReturnsCorrectUser()
     {
         var expectedUser = new User { UserID = 5, Username = "carol" };
+        HttpRequestMessage capturedRequest = null;
 
         _mockHandler.Protected()
             .Setup<Task<HttpResponseMessage>>("SendAsync",
@@ -148,12 +155,13 @@ public class UserServiceTests
                     req.Method == HttpMethod.Get &&
                     req.RequestUri.ToString().EndsWith("api/users/5")),
                 ItExpr.IsAny<CancellationToken>())
+            .Callback<HttpRequestMessage, CancellationToken>((req, _) => capturedRequest = req)
             .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.OK)
             {
                 Content = JsonContent.Create(expectedUser)
             });
 
-        HttpRequestMessage capturedRequest = null;
+        
 
 
         // Manually attach mocked token
