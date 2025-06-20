@@ -39,8 +39,8 @@ namespace MDE_Client.Application.Services
         public async Task<bool> LoginAsync(string username, string password)
         {
             // Clear old token just to be safe
-           // _token = null;
-           // _httpClient.DefaultRequestHeaders.Authorization = null;
+            _token = null;
+            _httpClient.DefaultRequestHeaders.Authorization = null;
 
             var credentials = new { Username = username, Password = password };
             var response = await _httpClient.PostAsJsonAsync("api/auth/login", credentials);
