@@ -162,7 +162,7 @@ auth SHA256
 tls-version-min 1.2
 remote-cert-tls server
 setenv UV_CLIENT_COMPANY_ID {companyId}
-setenv UV_CLIENT_NAME {companyName}_{machineName}
+setenv UV_CLIENT_NAME {companyName}-{machineName}
 setenv UV_CLIENT_DESCRIPTION ""{description}""
 push-peer-info
 auth-user-pass ""C:\\Program Files\\OpenVPN\\config\\auth.txt""
