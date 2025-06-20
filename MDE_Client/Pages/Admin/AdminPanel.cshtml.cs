@@ -109,13 +109,14 @@ namespace MDE_Client.Pages.Admin
                 }
                 User user = await _userService.GetUserByIdAsync(SelectedUserId);
                 Company company = await _companyService.GetCompanyByIdAsync(user.CompanyID);
+                MachineName = MachineName.Replace(" ", "-");
                 string ovpn = GenerateOvpnConfig(company.Name, MachineName, user.CompanyID, Description);
 
                 try
                 {
 
 
-
+                    
                     var (fileContent, fileName) = await _machineService.GenerateConfigAsync(MachineName, ovpn, company, false);
                     return File(fileContent, "application/zip", fileName);
                 }
