@@ -19,10 +19,30 @@
 
         }
 
+
+        <form id="dashboardForm"
+              method="GET"
+              action="@Model.DashboardBaseUrl"
+              target="_blank"
+              style="display:none;">
+            @foreach (var param in Model.DashboardQueryParams)
+            {
+                <input type="hidden" name="@param.Key" value="@param.Value" />
+            }
+        </form>
+
+
+
         <form method="post">
             <input type="hidden" asp-for="MachineId" />
             <button type="submit" asp-page-handler="OpenDashboard" class="btn btn-success">Open Dashboard</button>
         </form>
+
+      
+
+
+
+
 
         @if (AuthSession.Role == "1" || AuthSession.Role == "2" || AuthSession.Role == "4")
         {
@@ -59,6 +79,14 @@
     
    
 </div>
+
+
+
+
+
+
+
+
 @if (AuthSession.Role == "1" || AuthSession.Role == "2" || AuthSession.Role == "4")
 {
     <script>
