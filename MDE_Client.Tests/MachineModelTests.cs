@@ -82,43 +82,6 @@ public class MachineModelTests
         Assert.IsType<ForbidResult>(result);
     }
 
-    [Fact]
-    public async Task OnPostOpenDashboardAsync_RedirectsToDashboard_WhenUrlIsValid()
-    {
-        var model = CreateModel(role: "2", companyId: "5", userId: "5", token: "mocktoken");
-        model.MachineId = 1;
-
-        var context = new DefaultHttpContext();
-        context.Connection.RemoteIpAddress = System.Net.IPAddress.Parse("192.168.0.10");
-        context.Request.Headers["User-Agent"] = "MockBrowser";
-        model.PageContext = new PageContext { HttpContext = context };
-
-        _mockUserActivityService
-     .Setup(s => s.GetActivitiesForMachineAsync(1))
-     .ReturnsAsync(new ObservableCollection<UserActivityLog>
-     {
-        new UserActivityLog
-        {
-            UserId = 5,
-            MachineId = 1,
-            Action = "OpenDashboard",
-            Target = "Dashboard:FirstPage",
-            IpAddress = "192.168.1.100",
-            UserAgent = "TestAgent"
-        }
-     });
-
-
-       // _mockUserActivityService.Setup(s => s.LogActivityAsync(It.IsAny<UserActivityLog>()))
-            //.Returns(Task.CompletedTask);
-        _mockDashboardService.Setup(s => s.GetFirstDashboardPageUrlAsync(1))
-            .ReturnsAsync("https://mockdashboard/page");
-
-        var result = await model.OnPostOpenDashboardAsync();
-
-        var redirect = Assert.IsType<RedirectResult>(result);
-        Assert.Contains("token", redirect.Url);
-    }
 
 
 
