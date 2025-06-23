@@ -1,4 +1,5 @@
 ﻿@page "{machineId:int}"
+@inject HttpClient Http
 @model MDE_Client.Pages.Machine.MachineModel
 @{
     ViewData["Title"] = "Machine Dashboard";
@@ -38,7 +39,7 @@
             <button type="submit" asp-page-handler="OpenDashboard" class="btn btn-success">Open Dashboard</button>
         </form>
 
-      
+
 
 
 
