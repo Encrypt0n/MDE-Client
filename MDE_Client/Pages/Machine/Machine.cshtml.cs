@@ -8,6 +8,7 @@ using MDE_Client.Application;
 using MDE_Client.Application.Interfaces;
 using System.Text.Json;
 using System.Text;
+using Microsoft.AspNetCore.Components;
 
 namespace MDE_Client.Pages.Machine
 {
@@ -19,7 +20,7 @@ namespace MDE_Client.Pages.Machine
         private readonly IUserService _userService;
         private readonly ICompanyService _companyService;
         private readonly AuthSession _authSession;
-        
+
 
 
         public MachineModel(IMachineService machineService, IDashboardService dashboardService, IUserActivityService userActivityService, ICompanyService companyService, IUserService userService, AuthSession authSession)
@@ -30,6 +31,7 @@ namespace MDE_Client.Pages.Machine
             _companyService = companyService;
             _userService = userService;
             _authSession = authSession;
+          
         }
 
         [BindProperty(SupportsGet = true)]
@@ -114,10 +116,24 @@ namespace MDE_Client.Pages.Machine
 
 
             var dashboardUrl = await _dashboardService.GetFirstDashboardPageUrlAsync(MachineId);
-            var url = $"{dashboardUrl}";
+            //var url = $"{dashboardUrl}";
+            var url = $"{dashboardUrl}?token={Uri.EscapeDataString(_authSession.Token)}";
             if (!string.IsNullOrWhiteSpace(url))
             {
-                return Redirect(url);
+                //return Redirect(url);
+                // Inject NavigationManager as _navigationManager
+
+                // var token = "your_jwt_token_here";
+
+
+                var encodedToken = Uri.EscapeDataString(_authSession.Token);
+                return Redirect($"{dashboardUrl}?token={encodedToken}");
+
+                //HttpContext.Response.Redirect($"{dashboardUrl}?token={_authSession.Token}", false);
+
+                //return new EmptyResult();
+
+
             }
 
 
@@ -210,16 +226,16 @@ resolv-retry infinite
 nobind
 persist-key
 persist-tun
-ca ""C:\\Program Files\\OpenVPN\\config\\ca.crt""
-cert ""C:\\Program Files\\OpenVPN\\config\\client.crt""
-key ""C:\\Program Files\\OpenVPN\\config\\client.key""
-tls-auth ""C:\\Program Files\\OpenVPN\\config\\ta.key"" 1
+ca ""C:\\OpenVPN\\config\\ca.crt""
+cert ""C:\\OpenVPN\\config\\client.crt""
+key ""C:\\OpenVPN\\config\\client.key""
+tls-auth ""C:\\OpenVPN\\config\\ta.key"" 1
 key-direction 1
 cipher AES-256-GCM
 auth SHA256
 tls-version-min 1.2
 remote-cert-tls server
-auth-user-pass ""C:\\Program Files\\OpenVPN\\config\\auth.txt""
+auth-user-pass ""C:\\OpenVPN\\config\\auth.txt""
 route-nopull
 route 192.168.0.0 255.255.255.0 {machineIp}
 verb 3".Trim();
