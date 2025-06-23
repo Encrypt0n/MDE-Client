@@ -72,20 +72,9 @@ namespace MDE_Client.Pages.Machine
 
             DashboardPages = await _dashboardService.GetDashboardPagesAsync(MachineId);
 
-            var fullUrl = await _dashboardService.GetFirstDashboardPageUrlAsync(MachineId);
-            var separator = fullUrl.Contains("?") ? "&" : "?";
-            var token = _authSession?.Token ?? "";
+            
 
-            var combined = $"{fullUrl}{separator}token={token}";
-            var uri = new Uri(combined);
-
-            DashboardBaseUrl = uri.GetLeftPart(UriPartial.Path);
-
-            var queryParams = System.Web.HttpUtility.ParseQueryString(uri.Query);
-            foreach (string key in queryParams)
-            {
-                DashboardQueryParams[key] = queryParams[key];
-            }
+           
             //Debug.WriteLine("urllllll ", DashboardUrlWithToken);
             return Page();
         }
