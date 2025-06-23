@@ -50,8 +50,16 @@ namespace MDE_Client.Pages.Machine
 
         [BindProperty]
         public string PageURL { get; set; }
+        [BindProperty]
+        public string DashboardUrlWithToken { get; set; }
+
+        public string DashboardBaseUrl { get; set; }
+        public Dictionary<string, string> DashboardQueryParams { get; set; } = new();
 
         public Domain.Models.Machine? Machine { get; set; }
+
+        public string JwtToken => _authSession?.Token ?? "";
+
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -63,6 +71,22 @@ namespace MDE_Client.Pages.Machine
                 return NotFound();
 
             DashboardPages = await _dashboardService.GetDashboardPagesAsync(MachineId);
+
+            var fullUrl = await _dashboardService.GetFirstDashboardPageUrlAsync(MachineId);
+            var separator = fullUrl.Contains("?") ? "&" : "?";
+            var token = _authSession?.Token ?? "";
+
+            var combined = $"{fullUrl}{separator}token={token}";
+            var uri = new Uri(combined);
+
+            DashboardBaseUrl = uri.GetLeftPart(UriPartial.Path);
+
+            var queryParams = System.Web.HttpUtility.ParseQueryString(uri.Query);
+            foreach (string key in queryParams)
+            {
+                DashboardQueryParams[key] = queryParams[key];
+            }
+            //Debug.WriteLine("urllllll ", DashboardUrlWithToken);
             return Page();
         }
 
@@ -100,15 +124,17 @@ namespace MDE_Client.Pages.Machine
             });
 
 
-
             var dashboardUrl = await _dashboardService.GetFirstDashboardPageUrlAsync(MachineId);
-            var url = $"{dashboardUrl}?token={_authSession.Token}";
+            var url = $"{dashboardUrl}";
             if (!string.IsNullOrWhiteSpace(url))
             {
                 return Redirect(url);
             }
 
-            return RedirectToPage(new { machineId = MachineId });
+
+
+            return null;
+           // return RedirectToPage(new { machineId = MachineId });
         }
 
         public async Task<IActionResult> OnPostAddPageAsync()
