@@ -39,6 +39,15 @@
             <button type="submit" asp-page-handler="OpenDashboard" class="btn btn-success">Open Dashboard</button>
         </form>
 
+        <form method="post">
+            <input type="hidden" asp-for="MachineId" />
+            <button type="submit" asp-page-handler="OpenVNC" class="btn btn-success">Open VNC</button>
+        </form>
+
+        <form method="post">
+            <input type="hidden" asp-for="MachineId" />
+            <button type="submit" asp-page-handler="OpenCamera" class="btn btn-success">Open Camera</button>
+        </form>
 
 
 
