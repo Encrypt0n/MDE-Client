@@ -142,6 +142,102 @@ namespace MDE_Client.Pages.Machine
            // return RedirectToPage(new { machineId = MachineId });
         }
 
+        public async Task<IActionResult> OnPostOpenVNCAsync()
+        {
+            await _userActivityService.LogActivityAsync(new UserActivityLog
+            {
+                UserId = int.Parse(_authSession.UserId),
+                MachineId = MachineId,
+                Action = "OpenVNC",
+                Target = "VNC:MainPage",
+                IpAddress = Request.HttpContext.Connection.RemoteIpAddress?.ToString(),
+                UserAgent = Request.Headers["User-Agent"]
+            });
+
+
+            var Url = await _dashboardService.GetFirstDashboardPageUrlAsync(MachineId);
+            var uri = new Uri(Url);
+
+            var hostParts = uri.Host.Split('.', 2); // "machine1", "mde-portal.site"
+            var newHost = $"{hostParts[0]}-vnc.{hostParts[1]}";
+
+            // Rebuild the stripped and modified URL
+            var strippedUrl = $"{uri.Scheme}://{newHost}:{uri.Port}/";
+            Debug.WriteLine(strippedUrl);
+
+            //var cameraUrl = $"{strippedUrl}?token={Uri.EscapeDataString(_authSession.Token)}";
+            if (!string.IsNullOrWhiteSpace(strippedUrl))
+            {
+                //return Redirect(url);
+                // Inject NavigationManager as _navigationManager
+
+                // var token = "your_jwt_token_here";
+
+
+                var encodedToken = Uri.EscapeDataString(_authSession.Token);
+                return Redirect($"{strippedUrl}vnc.html?token={encodedToken}&host={newHost}/&port={uri.Port}&path=websockify?token={encodedToken}");
+
+                //HttpContext.Response.Redirect($"{dashboardUrl}?token={_authSession.Token}", false);
+
+                //return new EmptyResult();
+
+
+            }
+
+
+
+            return null;
+            // return RedirectToPage(new { machineId = MachineId });
+        }
+
+        public async Task<IActionResult> OnPostOpenCameraAsync()
+        {
+            await _userActivityService.LogActivityAsync(new UserActivityLog
+            {
+                UserId = int.Parse(_authSession.UserId),
+                MachineId = MachineId,
+                Action = "OpenCamera",
+                Target = "Camera:MainPage",
+                IpAddress = Request.HttpContext.Connection.RemoteIpAddress?.ToString(),
+                UserAgent = Request.Headers["User-Agent"]
+            });
+
+
+            var Url = await _dashboardService.GetFirstDashboardPageUrlAsync(MachineId);
+            var uri = new Uri(Url);
+
+            var hostParts = uri.Host.Split('.', 2); // "machine1", "mde-portal.site"
+            var newHost = $"{hostParts[0]}-camera.{hostParts[1]}";
+
+            // Rebuild the stripped and modified URL
+            var strippedUrl = $"{uri.Scheme}://{newHost}:{uri.Port}/";
+            Debug.WriteLine(strippedUrl);
+
+            //var cameraUrl = $"{strippedUrl}?token={Uri.EscapeDataString(_authSession.Token)}";
+            if (!string.IsNullOrWhiteSpace(strippedUrl))
+            {
+                //return Redirect(url);
+                // Inject NavigationManager as _navigationManager
+
+                // var token = "your_jwt_token_here";
+
+
+                var encodedToken = Uri.EscapeDataString(_authSession.Token);
+                return Redirect($"{strippedUrl}?token={encodedToken}");
+
+                //HttpContext.Response.Redirect($"{dashboardUrl}?token={_authSession.Token}", false);
+
+                //return new EmptyResult();
+
+
+            }
+
+
+
+            return null;
+            // return RedirectToPage(new { machineId = MachineId });
+        }
+
         public async Task<IActionResult> OnPostAddPageAsync()
         {
             if (!string.IsNullOrWhiteSpace(PageName) && !string.IsNullOrWhiteSpace(PageURL))
@@ -238,6 +334,7 @@ remote-cert-tls server
 auth-user-pass ""C:\\OpenVPN\\config\\auth.txt""
 route-nopull
 route 192.168.0.0 255.255.255.0 {machineIp}
+route 192.168.250.0 255.255.255.0 {machineIp}
 verb 3".Trim();
         }
 
