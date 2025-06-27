@@ -326,7 +326,6 @@ remote 217.63.76.110 1195
 resolv-retry infinite
 nobind
 persist-key
-persist-tun
 ca ""C:\\OpenVPN\\config\\ca.crt""
 cert ""C:\\OpenVPN\\config\\client.crt""
 key ""C:\\OpenVPN\\config\\client.key""
