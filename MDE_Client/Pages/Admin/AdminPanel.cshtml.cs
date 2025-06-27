@@ -25,7 +25,7 @@ namespace MDE_Client.Pages.Admin
         }
 
         [BindProperty]
-        public int SelectedUserId { get; set; }
+        public int SelectedCompanyId { get; set; }
 
         [BindProperty]
         public string MachineName { get; set; } = string.Empty;
@@ -43,7 +43,7 @@ namespace MDE_Client.Pages.Admin
         [BindProperty]
         public string? OvpnContent { get; set; }
 
-        public List<SelectListItem> Users { get; set; } = new();
+        public List<SelectListItem> Companies { get; set; } = new();
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -52,7 +52,7 @@ namespace MDE_Client.Pages.Admin
             {
                 return Forbid(); // or RedirectToPage("/AccessDenied")
             }
-            await LoadUsersAsync();
+            await LoadCompaniesAsync();
             return Page();
         }
 
@@ -63,7 +63,7 @@ namespace MDE_Client.Pages.Admin
                 return Forbid(); // or RedirectToPage("/AccessDenied")
             }
 
-            await LoadUsersAsync();
+            await LoadCompaniesAsync();
 
             if (string.IsNullOrWhiteSpace(CompanyName))
             {
@@ -100,17 +100,17 @@ namespace MDE_Client.Pages.Admin
 
 
 
-                await LoadUsersAsync();
+                await LoadCompaniesAsync();
 
-                if (SelectedUserId == 0 || string.IsNullOrEmpty(MachineName))
+                if (SelectedCompanyId == 0 || string.IsNullOrEmpty(MachineName))
                 {
                     ModelState.AddModelError("", "User and machine name must be provided.");
                     return Page();
                 }
-                User user = await _userService.GetUserByIdAsync(SelectedUserId);
-                Company company = await _companyService.GetCompanyByIdAsync(user.CompanyID);
+                //User user = await _userService.GetUserByIdAsync(SelectedCompanyId);
+                Company company = await _companyService.GetCompanyByIdAsync(SelectedCompanyId);
                 MachineName = MachineName.Replace(" ", "-");
-                string ovpn = GenerateOvpnConfig(company.Name, MachineName, user.CompanyID, Description);
+                string ovpn = GenerateOvpnConfig(company.Name, MachineName, company.CompanyID, Description);
 
                 try
                 {
@@ -131,14 +131,14 @@ namespace MDE_Client.Pages.Admin
             }
         }
 
-        private async Task LoadUsersAsync()
+        private async Task LoadCompaniesAsync()
         {
 
-            var users = await _userService.GetAllUsersAsync();
-            Users = users.Select(u => new SelectListItem
+            var companies = await _companyService.GetAllCompaniesAsync();
+            Companies = companies.Select(u => new SelectListItem
             {
-                Value = u.UserID.ToString(),
-                Text = u.Username
+                Value = u.CompanyID.ToString(),
+                Text = u.Name
             }).ToList();
         }
 
@@ -162,7 +162,7 @@ auth SHA256
 tls-version-min 1.2
 remote-cert-tls server
 setenv UV_CLIENT_COMPANY_ID {companyId}
-setenv UV_CLIENT_NAME {companyName}-{machineName}
+setenv UV_CLIENT_NAME ""{companyName}-{machineName}""
 setenv UV_CLIENT_DESCRIPTION ""{description}""
 push-peer-info
 auth-user-pass ""C:\\Program Files\\OpenVPN\\config\\auth.txt""

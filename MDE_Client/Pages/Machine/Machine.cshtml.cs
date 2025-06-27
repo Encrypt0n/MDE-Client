@@ -72,11 +72,13 @@ namespace MDE_Client.Pages.Machine
             if (Machine == null)
                 return NotFound();
 
-            DashboardPages = await _dashboardService.GetDashboardPagesAsync(MachineId);
+            // ↓ Laat de property nooit op null eindigen
+            var pages = await _dashboardService.GetDashboardPagesAsync(MachineId);
+            DashboardPages = pages ?? new ObservableCollection<DashboardPage>();
 
-            
 
-           
+
+
             //Debug.WriteLine("urllllll ", DashboardUrlWithToken);
             return Page();
         }
@@ -88,7 +90,8 @@ namespace MDE_Client.Pages.Machine
                 await _machineService.UpdateMachineDashboardUrlAsync(MachineId, SelectedPageUrl);
 
                 ActivityLogs = await _userActivityService.GetActivitiesForMachineAsync(MachineId); // 🔁 Add this
-                DashboardPages = await _dashboardService.GetDashboardPagesAsync(MachineId);
+                var pages = await _dashboardService.GetDashboardPagesAsync(MachineId);
+                DashboardPages = pages ?? new ObservableCollection<DashboardPage>();
                 Machine = await _machineService.GetMachineByIdAsync(MachineId);
 
                 return Page();
@@ -245,7 +248,8 @@ namespace MDE_Client.Pages.Machine
                 await _dashboardService.AddDashboardPageAsync(MachineId, PageName, PageURL);
             }
 
-            DashboardPages = await _dashboardService.GetDashboardPagesAsync(MachineId);
+            var pages = await _dashboardService.GetDashboardPagesAsync(MachineId);
+            DashboardPages = pages ?? new ObservableCollection<DashboardPage>();
             Machine = await _machineService.GetMachineByIdAsync(MachineId);
             return Page();
         }
@@ -257,7 +261,8 @@ namespace MDE_Client.Pages.Machine
                 await _dashboardService.DeleteDashboardPageAsync(pageId);
             }
 
-            DashboardPages = await _dashboardService.GetDashboardPagesAsync(MachineId);
+            var pages = await _dashboardService.GetDashboardPagesAsync(MachineId);
+            DashboardPages = pages ?? new ObservableCollection<DashboardPage>();
             Machine = await _machineService.GetMachineByIdAsync(MachineId);
             return Page();
         }

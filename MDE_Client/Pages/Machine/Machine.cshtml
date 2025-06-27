@@ -9,8 +9,7 @@
 <div class="container mt-4">
     <h2>@Model.Machine?.Name Dashboard</h2>
 
-    @if (Model.DashboardPages != null && Model.DashboardPages.Count > 0)
-    {
+    
         <h3 class="mt-4">Dashboard</h3>
         @if (AuthSession.Role == "1" || AuthSession.Role == "2" || AuthSession.Role == "4")
         {
@@ -33,11 +32,13 @@
         </form>
 
 
-
+    @if (Model.DashboardPages != null)
+    {
         <form method="post">
             <input type="hidden" asp-for="MachineId" />
             <button type="submit" asp-page-handler="OpenDashboard" class="btn btn-success">Open Dashboard</button>
         </form>
+        }
 
         <form method="post">
             <input type="hidden" asp-for="MachineId" />
@@ -54,7 +55,7 @@
 
 
 
-        @if (AuthSession.Role == "1" || AuthSession.Role == "2" || AuthSession.Role == "4")
+        @if (AuthSession.Role == "1" || AuthSession.Role == "2" || AuthSession.Role == "4" && Model.DashboardPages != null)
         {
             <h3 class="mt-4">Choose Dashboard Page</h3>
             <form method="post" asp-page-handler="SelectDashboardPage">
@@ -63,10 +64,9 @@
         </form>
         }
 
-    }
+    
 
-    @if (Model.ActivityLogs != null && Model.ActivityLogs.Any())
-    {
+   
         <h3 class="mt-5">Recent Activity</h3>
         <div class="activity-log border p-3 bg-light" style="max-height: 250px; overflow-y: auto; font-size: 0.9rem;">
             <ul class="list-unstyled">
@@ -83,7 +83,7 @@
                 }
             </ul>
         </div>
-    }
+    
 
 
     
@@ -100,6 +100,10 @@
 @if (AuthSession.Role == "1" || AuthSession.Role == "2" || AuthSession.Role == "4")
 {
     <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            const startBtn = document.getElementById("startVpnBtn");
+            const vpnStatus = document.getElementById("vpnStatus");
+            if (!startBtn) return;   // button not rendered for this user/role
         let vpnRunning = false;
 
         document.getElementById("startVpnBtn").addEventListener("click", async () => {
@@ -141,6 +145,7 @@
                 console.error(err);
             }
         });
+
     </script>
 }
 
