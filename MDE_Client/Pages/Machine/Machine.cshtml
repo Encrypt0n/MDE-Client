@@ -100,10 +100,6 @@
 @if (AuthSession.Role == "1" || AuthSession.Role == "2" || AuthSession.Role == "4")
 {
     <script>
-        window.addEventListener("DOMContentLoaded", () => {
-            const startBtn = document.getElementById("startVpnBtn");
-            const vpnStatus = document.getElementById("vpnStatus");
-            if (!startBtn) return;   // button not rendered for this user/role
         let vpnRunning = false;
 
         document.getElementById("startVpnBtn").addEventListener("click", async () => {
@@ -145,7 +141,6 @@
                 console.error(err);
             }
         });
-
     </script>
 }
 
