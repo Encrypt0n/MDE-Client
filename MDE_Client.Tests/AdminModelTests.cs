@@ -27,7 +27,7 @@ public class AdminPanelModelTests
     {
         var model = CreateModel(role: "2");
         var result = await model.OnGetAsync();
-        model.Users = new List<SelectListItem>
+        model.Companies = new List<SelectListItem>
 {
     new SelectListItem { Value = "1", Text = "alice" },
     new SelectListItem { Value = "2", Text = "bob" }
@@ -53,14 +53,14 @@ public class AdminPanelModelTests
         var result = await model.OnGetAsync();
 
         var json = Assert.IsType<Microsoft.AspNetCore.Mvc.RazorPages.PageResult>(result);
-        Assert.Single(model.Users);
+        Assert.Single(model.Companies);
     }
 
     [Fact]
     public async Task OnPostCreateCompanyAsync_Forbids_WhenUserIsNotAdmin()
     {
         var model = CreateModel(role: "3");
-        model.Users = new List<SelectListItem>
+        model.Companies = new List<SelectListItem>
 {
     new SelectListItem { Value = "1", Text = "alice" },
     new SelectListItem { Value = "2", Text = "bob" }
@@ -108,7 +108,7 @@ public class AdminPanelModelTests
     public async Task OnPostDownloadGeneratedAsync_ReturnsFile_WhenSuccessful()
     {
         var model = CreateModel(role: "1");
-        model.SelectedUserId = 5;
+        model.SelectedCompanyId = 5;
         model.MachineName = "M1";
         model.Description = "Desc";
         _mockUserService.Setup(s => s.GetAllUsersAsync()).ReturnsAsync(new System.Collections.ObjectModel.ObservableCollection<User> {
@@ -148,7 +148,7 @@ public class AdminPanelModelTests
     public async Task OnPostDownloadGeneratedAsync_ReturnsPage_WhenMissingInput()
     {
         var model = CreateModel(role: "1");
-        model.SelectedUserId = 0;
+        model.SelectedCompanyId = 0;
         model.MachineName = "";
         _mockUserService.Setup(s => s.GetAllUsersAsync()).ReturnsAsync(new System.Collections.ObjectModel.ObservableCollection<User> {
                 new User { UserID = 1, Username = "admin" }
