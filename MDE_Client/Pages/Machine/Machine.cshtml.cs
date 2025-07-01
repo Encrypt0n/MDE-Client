@@ -329,6 +329,10 @@ namespace MDE_Client.Pages.Machine
             return $@"client
 dev tun
 proto udp4
+route 192.168.0.0 255.255.255.0 {machineIp}
+route 192.168.250.0 255.255.255.0 {machineIp}
+route-nopull
+route-noexec
 remote 217.63.76.110 1195
 resolv-retry infinite
 nobind
@@ -343,9 +347,6 @@ auth SHA256
 tls-version-min 1.2
 remote-cert-tls server
 auth-user-pass ""C:\\OpenVPN\\config\\auth.txt""
-route-nopull
-route 192.168.0.0 255.255.255.0 {machineIp}
-route 192.168.250.0 255.255.255.0 {machineIp}
 verb 3".Trim();
         }
 
