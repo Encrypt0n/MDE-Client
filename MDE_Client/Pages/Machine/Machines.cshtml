@@ -6,7 +6,7 @@
 @inject MDE_Client.Application.AuthSession AuthSession
 
 <div class="d-flex justify-content-end mb-3 gap-2">
-    <form method="post" asp-page-handler="Logout">
+    <form method="post" asp-page-handler="Logout" onsubmit="stopVpnIfRunning()">
         <button type="submit" class="btn btn-danger">Logout</button>
     </form>
     @if (AuthSession.Role == "1")
@@ -60,3 +60,20 @@
         </div>
     }
 </div>
+
+<script>
+    async function stopVpnIfRunning() {
+        try {
+            const stopCommand = { Command: "stop" };
+            await fetch("https://localhost:8787/vpn/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(stopCommand)
+            });
+            console.log("VPN stop command sent.");
+        } catch (err) {
+            console.warn("Failed to stop VPN:", err);
+        }
+    }
+</script>
+
