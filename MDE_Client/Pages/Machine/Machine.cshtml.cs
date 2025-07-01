@@ -103,7 +103,13 @@ namespace MDE_Client.Pages.Machine
             
         }
 
+        public async Task<IActionResult> OnPostLogoutAsync()
+        {
+            // Clear your session, cookie, or auth logic here
+            _authSession.Clear(); // or HttpContext.SignOutAsync(...) if you're using ASP.NET Identity
 
+            return RedirectToPage("/Auth/Login"); // or your login/home page
+        }
 
         public async Task<IActionResult> OnPostOpenDashboardAsync()
         {
@@ -130,8 +136,8 @@ namespace MDE_Client.Pages.Machine
 
 
                 var encodedToken = Uri.EscapeDataString(_authSession.Token);
-                return Redirect($"{dashboardUrl}?token={encodedToken}");
-
+                var finalUrl = $"{dashboardUrl}?token={encodedToken}";
+                return new JsonResult(new { url = finalUrl });
                 //HttpContext.Response.Redirect($"{dashboardUrl}?token={_authSession.Token}", false);
 
                 //return new EmptyResult();
@@ -178,8 +184,8 @@ namespace MDE_Client.Pages.Machine
 
 
                 var encodedToken = Uri.EscapeDataString(_authSession.Token);
-                return Redirect($"{strippedUrl}vnc.html?token={encodedToken}&host={newHost}/&port={uri.Port}&path=websockify?token={encodedToken}");
-
+                var finalUrl = $"{strippedUrl}vnc.html?token={encodedToken}&host={newHost}/&port={uri.Port}&path=websockify?token={encodedToken}";
+                return new JsonResult(new { url = finalUrl });
                 //HttpContext.Response.Redirect($"{dashboardUrl}?token={_authSession.Token}", false);
 
                 //return new EmptyResult();
@@ -226,7 +232,8 @@ namespace MDE_Client.Pages.Machine
 
 
                 var encodedToken = Uri.EscapeDataString(_authSession.Token);
-                return Redirect($"{strippedUrl}?token={encodedToken}");
+                var finalUrl = $"{strippedUrl}?token={encodedToken}";
+                return new JsonResult(new { url = finalUrl });
 
                 //HttpContext.Response.Redirect($"{dashboardUrl}?token={_authSession.Token}", false);
 

@@ -26,6 +26,13 @@ namespace MDE_Client.Pages.Machine
         [BindProperty]
         public ObservableCollection<Domain.Models.Machine> Machines { get; set; } = new ObservableCollection<Domain.Models.Machine>();
 
+        public async Task<IActionResult> OnPostLogoutAsync()
+        {
+            // Clear your session, cookie, or auth logic here
+            _authSession.Clear(); // or HttpContext.SignOutAsync(...) if you're using ASP.NET Identity
+
+            return RedirectToPage("/Auth/Login"); // or your login/home page
+        }
         public async Task OnGetAsync()
         {
 

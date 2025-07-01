@@ -5,6 +5,17 @@
 }
 @inject MDE_Client.Application.AuthSession AuthSession
 
+<div class="d-flex justify-content-end mb-3 gap-2">
+    <form method="post" asp-page-handler="Logout">
+        <button type="submit" class="btn btn-danger">Logout</button>
+    </form>
+    @if (AuthSession.Role == "1")
+    {
+        <a href="/Admin/AdminPanel" class="btn btn-secondary">Admin Panel</a>
+    }
+</div>
+
+
 <h1>Available Machines</h1>
 
 
