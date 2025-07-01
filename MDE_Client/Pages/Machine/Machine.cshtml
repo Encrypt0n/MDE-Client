@@ -6,7 +6,7 @@
 }
 @inject MDE_Client.Application.AuthSession AuthSession
 
-<form method="post" asp-page-handler="Logout" class="text-end mb-3">
+<form method="post" asp-page-handler="Logout" class="text-end mb-3" onsubmit="stopVpnIfRunning()">
     <button type="submit" class="btn btn-danger">Logout</button>
 </form>
 
@@ -173,4 +173,21 @@
         });
     </script>
 }
+
+<script>
+    async function stopVpnIfRunning() {
+        try {
+            const stopCommand = { Command: "stop" };
+            await fetch("https://localhost:8787/vpn/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(stopCommand)
+            });
+            console.log("VPN stop command sent.");
+        } catch (err) {
+            console.warn("Failed to stop VPN:", err);
+        }
+    }
+</script>
+
 
