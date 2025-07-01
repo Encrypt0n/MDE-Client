@@ -332,7 +332,6 @@ proto udp4
 route 192.168.0.0 255.255.255.0 {machineIp}
 route 192.168.250.0 255.255.255.0 {machineIp}
 route-nopull
-route-noexec
 remote 217.63.76.110 1195
 resolv-retry infinite
 nobind
