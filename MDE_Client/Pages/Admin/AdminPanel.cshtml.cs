@@ -56,6 +56,15 @@ namespace MDE_Client.Pages.Admin
             return Page();
         }
 
+        public async Task<IActionResult> OnPostLogoutAsync()
+        {
+            // Clear your session, cookie, or auth logic here
+            _authSession.Clear(); // or HttpContext.SignOutAsync(...) if you're using ASP.NET Identity
+
+            return RedirectToPage("/Auth/Login"); // or your login/home page
+        }
+
+
         public async Task<IActionResult> OnPostCreateCompanyAsync()
         {
             if (_authSession.Role != "1")
