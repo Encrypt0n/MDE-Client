@@ -24,18 +24,9 @@
         }
 
 
-        <form id="dashboardForm"
-              method="GET"
-              action="@Model.DashboardBaseUrl"
-              target="_blank"
-              style="display:none;">
-            @foreach (var param in Model.DashboardQueryParams)
-            {
-                <input type="hidden" name="@param.Key" value="@param.Value" />
-            }
-        </form>
+    
 
-        @if (Model.DashboardPages != null && Model.MachineId == 1034)
+        @if (Model.DashboardPages != null)
     {
         <form method="post" onsubmit="submitAndOpenInNewTab(event, 'OpenDashboard')">
             <input type="hidden" asp-for="MachineId" />
@@ -43,21 +34,19 @@
     </form>
     }
 
-       @if (Model.MachineId == 1034)
-    {
+     
         <form method="post" onsubmit="submitAndOpenInNewTab(event, 'OpenVNC')">
             <input type="hidden" asp-for="MachineId" />
         <button type="submit" class="btn btn-success">Open VNC</button>
     </form>
-    }
+    
 
-    @if (Model.MachineId == 1041)
-    {
+   
         <form method="post" onsubmit="submitAndOpenInNewTab(event, 'OpenCamera')">
             <input type="hidden" asp-for="MachineId" />
         <button type="submit" class="btn btn-success">Open Camera</button>
     </form>
-    }
+    
    
 
 
@@ -65,7 +54,7 @@
 
 
 
-        @if (AuthSession.Role == "1" || AuthSession.Role == "2" || AuthSession.Role == "4" && Model.DashboardPages != null && Model.MachineId == 1034)
+        @if (AuthSession.Role == "1" || AuthSession.Role == "2" || AuthSession.Role == "4" && Model.DashboardPages != null)
         {
             <h3 class="mt-4">Choose Dashboard Page</h3>
             <form method="post" asp-page-handler="SelectDashboardPage">
