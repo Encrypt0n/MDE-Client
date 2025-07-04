@@ -324,14 +324,20 @@ namespace MDE_Client.Pages.Machine
 
         private string GenerateOvpnConfig(string machineName, int userid, string description, string machineIp)
         {
+            var octets = machineIp.Split('.');
+            if (octets.Length != 4)
+                throw new ArgumentException($"Invalid IPv4 address: {machineIp}");
 
+            int thirdOctet = int.Parse(octets[2]);   // e.g. 20
+            int fourthOctet = int.Parse(octets[3]);   // e.g. 12
 
             return $@"client
 dev tun
 proto udp4
+route {thirdOctet}.{fourthOctet}.1.0 255.255.255.0 {machineIp}
 route 192.168.0.0 255.255.255.0 {machineIp}
+route {thirdOctet}.{fourthOctet}.2.0 255.255.255.0 {machineIp}
 route 192.168.250.0 255.255.255.0 {machineIp}
-route-nopull
 remote 217.63.76.110 1195
 resolv-retry infinite
 nobind
